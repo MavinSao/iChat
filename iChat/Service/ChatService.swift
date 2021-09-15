@@ -10,16 +10,34 @@ import FirebaseFirestore
 
 struct ChatService {
     static let shared = ChatService()
-    
     private let db = Firestore.firestore()
     
-    //Get Current User from local storage
-    let currentUser = User(id: "vJdho07ltsOUBx95USUDsTWHxfh2", username: "mavin", fullname: "Mavin Sao", email: "mavinsao11@gmail.com", avatar: "https://cliply.co/wp-content/uploads/2020/08/442008112_GLANCING_AVATAR_3D_400.png")
+    var localDb = UserDefaults.standard
     
-    //Get Object User That We Choose To Chat with
-    let targetUser = User(id: "M8FFRNMLgHXcz1MfUjnwgnQx1ts1", username: "tara", fullname: "Tara Kit", email: "tara@gmail.com", avatar: "https://cliply.co/wp-content/uploads/2020/08/442008112_GLANCING_AVATAR_3D_400.png")
-     
+    var currentUser: User? {
+        get{
+            do {
+                // Create JSON Encoder
+                let decoder = JSONDecoder()
+                if let userData = localDb.data(forKey: "user"){
+                    let user = try decoder.decode(User.self, from: userData)
+                    return user
+                }else{
+                    return nil
+                }
+            } catch {
+                return nil
+                print("Unable to Encode Note (\(error))")
+            }
+        }
+    }
+    
     func sendMessage(message: String,roomIdentifier: String,reciver: User) {
+        
+        guard let currentUser = currentUser else {
+            return
+        }
+        
         let messageObj = Message(roomIdentifier: roomIdentifier, senderId: currentUser.id!, senderName: currentUser.username!, senderAvatar: currentUser.avatar!, recieverId: reciver.id, recieverName: reciver.username!, recieverAvatar: reciver.avatar!, sendDate: Date(), messageText: message, mediaURL: "", status: false)
         
         db.collection("Messages").addDocument(data: messageObj.dictionary) { error in
@@ -35,35 +53,56 @@ struct ChatService {
         
     }
     
-    func fetchAllChatRoomByUID(uid:String){
-        print("fetching...")
-        db.collection("PrivateRoom").whereField("membersId", arrayContains: uid).getDocuments { snapshot, error in
-            
-            print("Fisnished")
-            
+    func fetchAllChatRoom(completion: @escaping (Result<[PrivateRoom],Error>)->Void){
+        
+        guard let currentUser = currentUser else {
+            print("no user")
+            return
+        }
+        print("Current User", currentUser)
+        
+        db.collection("PrivateRoom").whereField("membersId", arrayContains: currentUser.id!).getDocuments { snapshot, error in
             if let error = error {
                 print("==>Error",error.localizedDescription)
+                completion(.failure(error))
             }
             guard let snapshot = snapshot else{
                 print("snapshot nil")
                 return
             }
             
-            print("snapshot:", snapshot.documents.count)
+            var roomData: [PrivateRoom] = []
             
             for document in snapshot.documents {
-                print("data")
-                print("\(document.documentID) => \(document.data())")
-            }
-            
+                
+                let roomDic        = document.data()
+                let roomIdentifier = roomDic["roomIdentifier"] as! String
+                let lastMessage    = roomDic["lastMessage"] as! String
+                let isSeen         = roomDic["isSeen"] as! Bool
+                let membersId      = roomDic["membersId"] as! [String]
+                let userOneName    = roomDic["userOneName"] as! String
+                let userOneAvatar    = roomDic["userOneAvatar"] as! String
+                let userTwoName    = roomDic["userTwoName"] as! String
+                let userTwoAvatar    = roomDic["userTwoAvatar"] as! String
+                
+                let privateRoom = PrivateRoom(roomIdentifier: roomIdentifier, membersId: membersId, lastMessage: lastMessage, isSeen: isSeen, userOneName: userOneName, userOneAvatar: userOneAvatar, userTwoName: userTwoName, userTwoAvatar: userTwoAvatar)
+       
+                roomData.append(privateRoom)
+                
+            }  
+            completion(.success(roomData))
         }
     }
     //CreateRoom
-    func createRoom(userId: String)  {
+    func createRoom(withUser: User)  {
+        
+        guard let currentUser = currentUser else {
+            return
+        }
         
         //Create Room Object
-        let privateId = currentUser.id! + "_" + targetUser.id!
-        let privateRoom = PrivateRoom(roomIdentifier: privateId, membersId: [currentUser.id!,targetUser.id!], lastMessage: "", isSeen: false)
+        let privateId = currentUser.id! + "_" + withUser.id!
+        let privateRoom = PrivateRoom(roomIdentifier: privateId, membersId: [currentUser.id!,withUser.id!], lastMessage: "", isSeen: false, userOneName: currentUser.fullname, userOneAvatar: currentUser.avatar , userTwoName: withUser.fullname, userTwoAvatar: withUser.avatar)
         
         db.collection("PrivateRoom").document(privateId).getDocument { snapshot, error in
             guard let snapshot = snapshot else {

@@ -6,24 +6,27 @@
 //
 
 import UIKit
+import ProgressHUD
 
 class ChatViewController: UIViewController {
 
+    var roomData: [PrivateRoom] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        fetchAllChats()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func fetchAllChats(){
+        ChatService.shared.fetchAllChatRoom { result in
+            switch result {
+            case .success(let rooms):
+                print("rooms",rooms)
+                   self.roomData=rooms
+            case .failure(let err):
+                   ProgressHUD.showError(err.localizedDescription)
+            }
+        }
     }
-    */
-
 }

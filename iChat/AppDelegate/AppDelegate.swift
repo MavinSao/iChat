@@ -16,6 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+        
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let appDelegate = UIApplication.shared.windows.first
+//        let mainTab = storyboard.instantiateViewController(identifier: "MainTabBar")
+//
+//        AuthService.shared.checkExistUser { isExist in
+//            print("work2")
+//            if isExist { appDelegate?.rootViewController = mainTab}
+//        }
+
         return true
     }
 

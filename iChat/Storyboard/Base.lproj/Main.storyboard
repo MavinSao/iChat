@@ -288,7 +288,6 @@
         <!--Messages-->
         <scene sceneID="uOH-Hj-YVG">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VaY-j5-gtk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="HomeScreenVc" id="gyG-tk-3Ps" customClass="ChatViewController" customModule="iChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FFt-Xt-rEn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -310,6 +309,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Messages" id="fzt-wq-XVc"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VaY-j5-gtk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3128.985507246377" y="55.580357142857139"/>
         </scene>
@@ -334,6 +334,7 @@
                 <tabBarController storyboardIdentifier="MainTabBar" automaticallyAdjustsScrollViewInsets="NO" id="mhm-5c-U6I" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="78z-Ys-U07">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -377,11 +378,11 @@
             </objects>
             <point key="canvasLocation" x="2657.971014492754" y="783.48214285714278"/>
         </scene>
-        <!--Users-->
+        <!--People-->
         <scene sceneID="V4V-xS-9EM">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6JB-PI-2gG" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Users" image="person.and.person.fill" catalog="system" id="oBY-WX-eYC"/>
+                    <tabBarItem key="tabBarItem" title="People" image="person.and.person.fill" catalog="system" id="oBY-WX-eYC"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="XmQ-iZ-OXY">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

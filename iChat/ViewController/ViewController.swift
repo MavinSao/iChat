@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        ChatService.shared.fetchAllChatRoomByUID(uid: "vJdho07ltsOUBx95USUDsTWHxfh2")
+//        ChatService.shared.fetchAllChatRoomByUID(uid: "vJdho07ltsOUBx95USUDsTWHxfh2")
     }
     
 
@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func chatPressed(_ sender: Any) {
-        createRoom()
+//        createRoom()
     }
     
     @IBAction func sendMessagePressed(_ sender: Any) {
@@ -62,10 +62,10 @@ class ViewController: UIViewController {
 //        
     }
     
-    func createRoom(){
-        let withUser = "oJ4oyy4E1HOioAu7c62IZMiH41P2"
-        ChatService.shared.createRoom(userId: withUser)
-    }
+//    func createRoom(){
+//        let withUser = "oJ4oyy4E1HOioAu7c62IZMiH41P2"
+//        ChatService.shared.createRoom(userId: withUser)
+//    }
 
 }
 

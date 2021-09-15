@@ -101,6 +101,32 @@ struct AuthService {
         }
     }
     
+    func checkExistUser(completion: @escaping(Bool)->Void){
+        print("work")
+        let localDb = UserDefaults.standard
+        
+        do {
+            // Create JSON Encoder
+            let decoder = JSONDecoder()
+            if let userData = localDb.data(forKey: "user"){
+                let user = try decoder.decode(User.self, from: userData)
+                
+                db.collection("Users").document(user.id!).getDocument { snapshot, err in
+                    if err != nil {return}
+                    if let snapshot = snapshot {
+                        completion(snapshot.exists)
+                    }
+                }
+                
+            }else{
+                completion(false)
+            }
+        } catch {
+            completion(false)
+            print("Unable to Encode Note (\(error))")
+        }
+    }
+    
     func logout() {
         
     }

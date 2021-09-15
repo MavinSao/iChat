@@ -12,12 +12,22 @@ struct PrivateRoom {
     let membersId      : [String]?
     let lastMessage    : String?
     let isSeen         : Bool?
+    let userOneName    : String?
+    let userOneAvatar  : String?
+    let userTwoName    : String?
+    let userTwoAvatar  : String?
+    
     var dictionary: [String:Any] {
         return [
             "roomIdentifier" : roomIdentifier ?? "",
             "membersId" : membersId ?? [],
             "lastMessage" : lastMessage ?? "",
             "isSeen" : isSeen ?? "",
+            "userOneName": userOneName ?? "",
+            "userOneAvatar" : userOneAvatar ?? "",
+            "userTwoName": userTwoName ?? "",
+            "userTwoAvatar": userTwoAvatar ?? ""
+            
         ]
     }
 }

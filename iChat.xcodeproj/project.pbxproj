@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84A87F1826F2552900C223F1 /* AnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A87F1726F2552900C223F1 /* AnimationType.swift */; };
+		84A87F1C26F2631300C223F1 /* RoomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A87F1A26F2631300C223F1 /* RoomTableViewCell.swift */; };
+		84A87F1D26F2631300C223F1 /* RoomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A87F1B26F2631300C223F1 /* RoomTableViewCell.xib */; };
 		D8D3EAF826F18496008ED490 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D3EAF726F18496008ED490 /* ChatService.swift */; };
 		D8D3EAFC26F18545008ED490 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D3EAFB26F18545008ED490 /* User.swift */; };
 		D8D3EAFE26F18621008ED490 /* PrivateRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D3EAFD26F18621008ED490 /* PrivateRoom.swift */; };
@@ -29,6 +32,9 @@
 
 /* Begin PBXFileReference section */
 		0A9B395E7A79D33AA502A493 /* Pods-iChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChat.debug.xcconfig"; path = "Target Support Files/Pods-iChat/Pods-iChat.debug.xcconfig"; sourceTree = "<group>"; };
+		84A87F1726F2552900C223F1 /* AnimationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationType.swift; sourceTree = "<group>"; };
+		84A87F1A26F2631300C223F1 /* RoomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTableViewCell.swift; sourceTree = "<group>"; };
+		84A87F1B26F2631300C223F1 /* RoomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoomTableViewCell.xib; sourceTree = "<group>"; };
 		BC0CADC40BF85D7AE5F49739 /* Pods_iChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D897CFCF0476FFDF49E2B09C /* Pods-iChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChat.release.xcconfig"; path = "Target Support Files/Pods-iChat/Pods-iChat.release.xcconfig"; sourceTree = "<group>"; };
 		D8D3EAF726F18496008ED490 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
@@ -71,6 +77,15 @@
 				D897CFCF0476FFDF49E2B09C /* Pods-iChat.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		84A87F1926F262F100C223F1 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				84A87F1A26F2631300C223F1 /* RoomTableViewCell.swift */,
+				84A87F1B26F2631300C223F1 /* RoomTableViewCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		D57AE4DDE92CB2B9BE72EE6B /* Frameworks */ = {
@@ -142,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				D8D3EB1226F2230A008ED490 /* AuthError.swift */,
+				84A87F1726F2552900C223F1 /* AnimationType.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -172,6 +188,7 @@
 				D8D3EAF626F1846D008ED490 /* Service */,
 				D8D3EAEC26F182C8008ED490 /* AppDelegate */,
 				D8D3EAF326F183E2008ED490 /* ViewController */,
+				84A87F1926F262F100C223F1 /* Cell */,
 				D8D3EAF426F183EE008ED490 /* Storyboard */,
 				D8D3EAF526F183FA008ED490 /* Rsource */,
 				D8D7585926F0AC9E00F00779 /* Info.plist */,
@@ -239,6 +256,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A87F1D26F2631300C223F1 /* RoomTableViewCell.xib in Resources */,
 				D8D7585826F0AC9E00F00779 /* LaunchScreen.storyboard in Resources */,
 				D8D7585526F0AC9E00F00779 /* Assets.xcassets in Resources */,
 				D8D7585326F0AC9A00F00779 /* Main.storyboard in Resources */,
@@ -301,10 +319,12 @@
 				D8D3EB1026F21292008ED490 /* RegisterViewController.swift in Sources */,
 				D8D3EAF826F18496008ED490 /* ChatService.swift in Sources */,
 				D8D7584C26F0AC9A00F00779 /* AppDelegate.swift in Sources */,
+				84A87F1C26F2631300C223F1 /* RoomTableViewCell.swift in Sources */,
 				D8D3EAFC26F18545008ED490 /* User.swift in Sources */,
 				D8D7584E26F0AC9A00F00779 /* SceneDelegate.swift in Sources */,
 				D8D3EB1326F2230A008ED490 /* AuthError.swift in Sources */,
 				D8D3EB0026F1884D008ED490 /* Message.swift in Sources */,
+				84A87F1826F2552900C223F1 /* AnimationType.swift in Sources */,
 				D8D3EB0A26F211C2008ED490 /* ChatViewController.swift in Sources */,
 				D8D3EB0226F1899A008ED490 /* AuthService.swift in Sources */,
 				D8D3EB0E26F21285008ED490 /* LoginViewController.swift in Sources */,
