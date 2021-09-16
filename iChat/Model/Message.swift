@@ -30,7 +30,7 @@ struct Message {
             "recieverName" : recieverName ?? "",
             "recieverAvatar" : recieverAvatar ?? "",
             "messageText"     : messageText ?? "",
-            "sendDate" : sendDate ?? Date(),
+            "sendDate" : sendDate ?? Date().timeIntervalSince1970,
             "mediaURL" : mediaURL ?? "",
             "status" : status ?? "",
         ]

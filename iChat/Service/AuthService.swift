@@ -15,19 +15,17 @@ struct AuthService {
     
     private let db = Firestore.firestore()
     
-    var localDb = UserDefaults.standard
+    var defaults = UserDefaults.standard
     
     func register(username: String,fullname: String,email: String,password: String, avatar: String, completion: @escaping (Result<String,Error>)->Void){
  
         Auth.auth().createUser(withEmail: email, password: password) { authData, error in
-            
             if let error = error {
                 print("error",error.localizedDescription)
             }else{
                 guard let result = authData else{
                     return
                 }
-                print("==result==",result.user.uid)
                 
                 let user = User(id: result.user.uid, username: username, fullname: fullname, email: email, avatar: avatar)
                 
@@ -78,7 +76,8 @@ struct AuthService {
                         let data = try encoder.encode(user)
 
                         // Write/Set Data
-                        UserDefaults.standard.set(data, forKey: "user")
+                        defaults.set(data, forKey: "user")
+                        defaults.set(id, forKey: "currentID")
                         
                         completion(.success("Login Successfully"))
 
@@ -102,13 +101,10 @@ struct AuthService {
     }
     
     func checkExistUser(completion: @escaping(Bool)->Void){
-        print("work")
-        let localDb = UserDefaults.standard
-        
         do {
             // Create JSON Encoder
             let decoder = JSONDecoder()
-            if let userData = localDb.data(forKey: "user"){
+            if let userData = defaults.data(forKey: "user"){
                 let user = try decoder.decode(User.self, from: userData)
                 
                 db.collection("Users").document(user.id!).getDocument { snapshot, err in
@@ -127,9 +123,14 @@ struct AuthService {
         }
     }
     
-    func logout() {
-        
+    func logout(completion: @escaping(Result<Bool,Error>)->Void) {
+        do{
+            try Auth.auth().signOut()
+            defaults.set(nil, forKey: "currentID")
+            defaults.set(nil, forKey: "user")
+            completion(.success(true))
+        }catch(let error){
+            completion(.failure(error))
+        }
     }
-    
-    
 }

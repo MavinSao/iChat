@@ -39,7 +39,7 @@ class RegisterViewController: UIViewController {
                     case .success(let message):
                           print(message)
                     case .failure(let error):
-                         print(error.localizedDescription)
+                          print(error.localizedDescription)
                 }
                 
             })

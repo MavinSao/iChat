@@ -6,18 +6,32 @@
 //
 
 import UIKit
+import Kingfisher
 
 class RoomTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var profileImage: UIImageView!
+    
+    var defaults = UserDefaults.standard
+    
+    func config(room: PrivateRoom){
+        let currID = defaults.string(forKey: "currentID")
+        
+        let pfURLOne = URL(string: room.userOneAvatar!)
+        let pfURLTwo = URL(string: room.userOneAvatar!)
+        
+        if room.membersId![0] == currID {
+            self.usernameLabel.text = room.userTwoName
+            self.profileImage.kf.setImage(with: pfURLTwo)
+        }else{
+            self.usernameLabel.text = room.userOneName
+            self.profileImage.kf.setImage(with: pfURLOne)
+        }
+        self.messageLabel.text = room.lastMessage
+        
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    
     
 }

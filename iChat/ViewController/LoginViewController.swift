@@ -19,7 +19,6 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    
     @IBAction func LoginPressed(_ sender: Any) {
         
         let appDelegate = UIApplication.shared.windows.first
@@ -30,13 +29,12 @@ class LoginViewController: UIViewController {
     
         AuthService.shared.login(email: emailTextField.text!, password: passwordTextField.text!, completion: {
                 result in
-                
                 switch result {
                     case .success(let message):
                           print(message)
                           ProgressHUD.dismiss()
                           appDelegate?.rootViewController = mainTab
-                    case .failure(let error): print(error.localizedDescription)
+                case .failure(let error):  ProgressHUD.showError(error.localizedDescription)
                 }
                 
             })

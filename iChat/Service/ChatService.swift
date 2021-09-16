@@ -32,24 +32,43 @@ struct ChatService {
         }
     }
     
-    func sendMessage(message: String,roomIdentifier: String,reciver: User) {
+    func fetchMessagesByRoomId(roomIdentifier: String,completion: @escaping (Result<[Message],Error>)->Void){
+        
+       
+            
+   }
+        
+
+    
+    func sendMessage(message: String,roomIdentifier: String,reciverId: String) {
         
         guard let currentUser = currentUser else {
             return
         }
         
-        let messageObj = Message(roomIdentifier: roomIdentifier, senderId: currentUser.id!, senderName: currentUser.username!, senderAvatar: currentUser.avatar!, recieverId: reciver.id, recieverName: reciver.username!, recieverAvatar: reciver.avatar!, sendDate: Date(), messageText: message, mediaURL: "", status: false)
-        
-        db.collection("Messages").addDocument(data: messageObj.dictionary) { error in
-            if let error = error {
-                print(error.localizedDescription)
-            }else{
-                
-                db.collection("PrivateRoom").document(roomIdentifier).setData(["lastMessage": message],merge: true)
-                
-                print("Send Message Success")
+        UserService.shared.fetchUserByUID(uid: reciverId) { result in
+            switch result {
+            case .success(let reciver):
+                let messageObj = Message(roomIdentifier: roomIdentifier, senderId: currentUser.id!, senderName: currentUser.username!, senderAvatar: currentUser.avatar!, recieverId: reciver.id, recieverName: reciver.username!, recieverAvatar: reciver.avatar!, sendDate: Date(), messageText: message, mediaURL: "", status: false)
+                    
+                    db.collection("Messages").addDocument(data: messageObj.dictionary) { error in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        }else{
+                            
+                            db.collection("PrivateRoom").document(roomIdentifier).setData(["lastMessage": message],merge: true)
+                            
+                            print("Send Message Success")
+                        }
+                    }
+            case .failure(let error): print(error.localizedDescription)
+            
             }
         }
+        
+       
+        
+        
         
     }
     

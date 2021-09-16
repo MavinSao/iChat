@@ -27,6 +27,17 @@
 		D8D7585326F0AC9A00F00779 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8D7585126F0AC9A00F00779 /* Main.storyboard */; };
 		D8D7585526F0AC9E00F00779 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8D7585426F0AC9E00F00779 /* Assets.xcassets */; };
 		D8D7585826F0AC9E00F00779 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8D7585626F0AC9E00F00779 /* LaunchScreen.storyboard */; };
+		D8F8597926F2E9B800F981E3 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8597826F2E9B800F981E3 /* UserService.swift */; };
+		D8F8598026F2EDE600F981E3 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8597E26F2EDE600F981E3 /* UserTableViewCell.swift */; };
+		D8F8598126F2EDE600F981E3 /* UserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8F8597F26F2EDE600F981E3 /* UserTableViewCell.xib */; };
+		D8F8598426F2F4ED00F981E3 /* UserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8598326F2F4ED00F981E3 /* UserProtocol.swift */; };
+		D8F8598626F2F8E200F981E3 /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8598526F2F8E200F981E3 /* RoomViewController.swift */; };
+		D8F8599526F355E700F981E3 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8599426F355E700F981E3 /* PaddingLabel.swift */; };
+		D8F8599726F3587C00F981E3 /* ViewCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8599626F3587C00F981E3 /* ViewCustom.swift */; };
+		D8F8599A26F358E000F981E3 /* SenderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8599826F358E000F981E3 /* SenderTableViewCell.swift */; };
+		D8F8599B26F358E000F981E3 /* SenderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8F8599926F358E000F981E3 /* SenderTableViewCell.xib */; };
+		D8F8599E26F358F000F981E3 /* RecieverTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8599C26F358F000F981E3 /* RecieverTableViewCell.swift */; };
+		D8F8599F26F358F000F981E3 /* RecieverTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8F8599D26F358F000F981E3 /* RecieverTableViewCell.xib */; };
 		F1D43116F2112A76335ED33E /* Pods_iChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0CADC40BF85D7AE5F49739 /* Pods_iChat.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +67,17 @@
 		D8D7585426F0AC9E00F00779 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D8D7585726F0AC9E00F00779 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D8D7585926F0AC9E00F00779 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D8F8597826F2E9B800F981E3 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		D8F8597E26F2EDE600F981E3 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		D8F8597F26F2EDE600F981E3 /* UserTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserTableViewCell.xib; sourceTree = "<group>"; };
+		D8F8598326F2F4ED00F981E3 /* UserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProtocol.swift; sourceTree = "<group>"; };
+		D8F8598526F2F8E200F981E3 /* RoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
+		D8F8599426F355E700F981E3 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		D8F8599626F3587C00F981E3 /* ViewCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCustom.swift; sourceTree = "<group>"; };
+		D8F8599826F358E000F981E3 /* SenderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderTableViewCell.swift; sourceTree = "<group>"; };
+		D8F8599926F358E000F981E3 /* SenderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SenderTableViewCell.xib; sourceTree = "<group>"; };
+		D8F8599C26F358F000F981E3 /* RecieverTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecieverTableViewCell.swift; sourceTree = "<group>"; };
+		D8F8599D26F358F000F981E3 /* RecieverTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecieverTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,8 +104,11 @@
 		84A87F1926F262F100C223F1 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				D8F8598726F317A500F981E3 /* MessageCell */,
 				84A87F1A26F2631300C223F1 /* RoomTableViewCell.swift */,
 				84A87F1B26F2631300C223F1 /* RoomTableViewCell.xib */,
+				D8F8597E26F2EDE600F981E3 /* UserTableViewCell.swift */,
+				D8F8597F26F2EDE600F981E3 /* UserTableViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -113,6 +138,7 @@
 				D8D3EB0B26F211CF008ED490 /* UserViewController.swift */,
 				D8D3EB0D26F21285008ED490 /* LoginViewController.swift */,
 				D8D3EB0F26F21292008ED490 /* RegisterViewController.swift */,
+				D8F8598526F2F8E200F981E3 /* RoomViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -139,6 +165,7 @@
 			children = (
 				D8D3EAF726F18496008ED490 /* ChatService.swift */,
 				D8D3EB0126F1899A008ED490 /* AuthService.swift */,
+				D8F8597826F2E9B800F981E3 /* UserService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -158,6 +185,8 @@
 			children = (
 				D8D3EB1226F2230A008ED490 /* AuthError.swift */,
 				84A87F1726F2552900C223F1 /* AnimationType.swift */,
+				D8F8599426F355E700F981E3 /* PaddingLabel.swift */,
+				D8F8599626F3587C00F981E3 /* ViewCustom.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -183,6 +212,7 @@
 		D8D7584A26F0AC9A00F00779 /* iChat */ = {
 			isa = PBXGroup;
 			children = (
+				D8F8598226F2F4CB00F981E3 /* Protocol */,
 				D8D3EB1126F222EE008ED490 /* Utility */,
 				D8D3EAF926F18532008ED490 /* Model */,
 				D8D3EAF626F1846D008ED490 /* Service */,
@@ -195,6 +225,25 @@
 				D8D3EB0326F19665008ED490 /* GoogleService-Info.plist */,
 			);
 			path = iChat;
+			sourceTree = "<group>";
+		};
+		D8F8598226F2F4CB00F981E3 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				D8F8598326F2F4ED00F981E3 /* UserProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		D8F8598726F317A500F981E3 /* MessageCell */ = {
+			isa = PBXGroup;
+			children = (
+				D8F8599826F358E000F981E3 /* SenderTableViewCell.swift */,
+				D8F8599926F358E000F981E3 /* SenderTableViewCell.xib */,
+				D8F8599C26F358F000F981E3 /* RecieverTableViewCell.swift */,
+				D8F8599D26F358F000F981E3 /* RecieverTableViewCell.xib */,
+			);
+			path = MessageCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,8 +307,11 @@
 			files = (
 				84A87F1D26F2631300C223F1 /* RoomTableViewCell.xib in Resources */,
 				D8D7585826F0AC9E00F00779 /* LaunchScreen.storyboard in Resources */,
+				D8F8599F26F358F000F981E3 /* RecieverTableViewCell.xib in Resources */,
 				D8D7585526F0AC9E00F00779 /* Assets.xcassets in Resources */,
+				D8F8599B26F358E000F981E3 /* SenderTableViewCell.xib in Resources */,
 				D8D7585326F0AC9A00F00779 /* Main.storyboard in Resources */,
+				D8F8598126F2EDE600F981E3 /* UserTableViewCell.xib in Resources */,
 				D8D3EB0426F19665008ED490 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,16 +366,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8D3EAFE26F18621008ED490 /* PrivateRoom.swift in Sources */,
+				D8F8598626F2F8E200F981E3 /* RoomViewController.swift in Sources */,
 				D8D3EB0C26F211CF008ED490 /* UserViewController.swift in Sources */,
 				D8D7585026F0AC9A00F00779 /* ViewController.swift in Sources */,
 				D8D3EB1026F21292008ED490 /* RegisterViewController.swift in Sources */,
 				D8D3EAF826F18496008ED490 /* ChatService.swift in Sources */,
+				D8F8599A26F358E000F981E3 /* SenderTableViewCell.swift in Sources */,
+				D8F8597926F2E9B800F981E3 /* UserService.swift in Sources */,
 				D8D7584C26F0AC9A00F00779 /* AppDelegate.swift in Sources */,
+				D8F8599526F355E700F981E3 /* PaddingLabel.swift in Sources */,
 				84A87F1C26F2631300C223F1 /* RoomTableViewCell.swift in Sources */,
+				D8F8598426F2F4ED00F981E3 /* UserProtocol.swift in Sources */,
+				D8F8599E26F358F000F981E3 /* RecieverTableViewCell.swift in Sources */,
 				D8D3EAFC26F18545008ED490 /* User.swift in Sources */,
+				D8F8598026F2EDE600F981E3 /* UserTableViewCell.swift in Sources */,
 				D8D7584E26F0AC9A00F00779 /* SceneDelegate.swift in Sources */,
 				D8D3EB1326F2230A008ED490 /* AuthError.swift in Sources */,
 				D8D3EB0026F1884D008ED490 /* Message.swift in Sources */,
+				D8F8599726F3587C00F981E3 /* ViewCustom.swift in Sources */,
 				84A87F1826F2552900C223F1 /* AnimationType.swift in Sources */,
 				D8D3EB0A26F211C2008ED490 /* ChatViewController.swift in Sources */,
 				D8D3EB0226F1899A008ED490 /* AuthService.swift in Sources */,

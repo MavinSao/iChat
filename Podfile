@@ -10,4 +10,7 @@ target 'iChat' do
   pod 'Firebase/Firestore'
   pod 'Firebase/Storage'
   pod 'ProgressHUD'
+  pod 'Kingfisher'
+  pod 'IQKeyboardManager'
+  pod 'IQKeyboardManagerSwift'
 end
