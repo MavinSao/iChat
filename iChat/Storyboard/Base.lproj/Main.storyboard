@@ -63,6 +63,11 @@
                                 <state key="normal" title="Login">
                                     <color key="titleColor" systemColor="secondarySystemBackgroundColor"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="LoginPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZT7-aS-dw0"/>
                                 </connections>
@@ -74,6 +79,11 @@
                                 <state key="normal" title="Register">
                                     <color key="titleColor" systemColor="labelColor"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="qCl-sN-zYS" kind="presentation" modalPresentationStyle="fullScreen" id="mUr-eK-ahd"/>
                                 </connections>
@@ -211,6 +221,11 @@
                                 <state key="normal" title="Sign Up">
                                     <color key="titleColor" systemColor="secondarySystemBackgroundColor"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="signUp:" destination="qCl-sN-zYS" eventType="touchUpInside" id="aRc-1a-fyE"/>
                                 </connections>
@@ -516,7 +531,6 @@
         <!--Messages-->
         <scene sceneID="DXF-LP-0IJ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="b2k-B5-HyL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iI1-Iv-boy" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Messages" id="90y-cv-fF4">
                         <imageReference key="image" image="message.fill" catalog="system" symbolScale="large"/>
@@ -531,6 +545,7 @@
                         <segue destination="gyG-tk-3Ps" kind="relationship" relationship="rootViewController" id="xf9-7N-Xj5"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b2k-B5-HyL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2218.840579710145" y="55.580357142857139"/>
         </scene>

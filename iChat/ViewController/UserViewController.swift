@@ -12,6 +12,10 @@ class UserViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
+    var userDelegate: UserProtocolDelegate?
+    
+    
+    
     var allUsers: [User] = []
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,8 +51,27 @@ extension UserViewController: UITableViewDataSource,UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "userCell", for: indexPath) as! UserTableViewCell
+        cell.selectionStyle = .none
         cell.config(user: allUsers[indexPath.row])
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let roomVc = storyboard?.instantiateViewController(identifier: "roomVC") as! RoomViewController
+        
+        let withUser = allUsers[indexPath.row]
+        
+          ChatService.shared.createRoom(withUser: withUser) { result in
+            switch result {
+            case .success(let room):
+                 print("The Room",room)
+                self.userDelegate = roomVc
+                self.userDelegate?.joinChat(room: room, recieverId: withUser.id!)
+                self.navigationController?.pushViewController(roomVc, animated: true)
+            case .failure(let error):
+                ProgressHUD.showError(error.localizedDescription)
+            }
+        }
     }
     
 

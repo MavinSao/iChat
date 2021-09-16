@@ -13,7 +13,7 @@ class SenderTableViewCell: UITableViewCell {
     
     func config(message: Message) {
         
-        let profileURL = URL(string: message.recieverAvatar ?? "https://cliply.co/wp-content/uploads/2020/08/442008112_GLANCING_AVATAR_3D_400.png")
+        let profileURL = URL(string: message.senderAvatar ?? "https://cliply.co/wp-content/uploads/2020/08/442008112_GLANCING_AVATAR_3D_400.png")
         self.profileImage.kf.setImage(with: profileURL)
         self.messageText.text = message.messageText
         

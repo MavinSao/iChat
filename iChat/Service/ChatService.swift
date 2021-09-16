@@ -113,7 +113,7 @@ struct ChatService {
         }
     }
     //CreateRoom
-    func createRoom(withUser: User)  {
+    func createRoom(withUser: User,compeltion: @escaping (Result<PrivateRoom,Error>)->Void)  {
         
         guard let currentUser = currentUser else {
             return
@@ -129,13 +129,16 @@ struct ChatService {
                 return
             }
             if(!snapshot.exists){
+                
                 db.collection("PrivateRoom").document(privateId).setData(privateRoom.dictionary, merge: false) { error in
                     if let error = error {
-                       print(error.localizedDescription)
+                        compeltion(.failure(error))
                     }else{
-                       print("Create Room Successfully")
+                        compeltion(.success(privateRoom))
                     }
-                }
+                 }
+            }else{
+                compeltion(.success(privateRoom))
             }
         }
  

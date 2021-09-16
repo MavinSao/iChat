@@ -8,6 +8,7 @@
 import UIKit
 import ProgressHUD
 import FirebaseFirestore
+import IQKeyboardManager
 
 class RoomViewController: UIViewController {
     
@@ -31,6 +32,7 @@ class RoomViewController: UIViewController {
         self.tableView.register(UINib(nibName: "RecieverTableViewCell", bundle: nil), forCellReuseIdentifier: "recieverCell")
         self.tableView.register(UINib(nibName: "SenderTableViewCell", bundle: nil), forCellReuseIdentifier: "senderCell")
         
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
         prepareNav()
         fetchMessages()
      

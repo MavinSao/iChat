@@ -7,6 +7,7 @@
 
 import UIKit
 import ProgressHUD
+import FirebaseFirestore
 
 class ChatViewController: UIViewController {
     
@@ -15,26 +16,28 @@ class ChatViewController: UIViewController {
     
     var roomData: [PrivateRoom] = []
     
+    private let db = Firestore.firestore()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.register(UINib(nibName: "RoomTableViewCell", bundle: nil), forCellReuseIdentifier: "chatCell")
-        fetchAllChats()
+        fetchAllPrivateRoom()
         
         
     }
     
-    func fetchAllChats(){
-        ChatService.shared.fetchAllChatRoom { result in
-            switch result {
-            case .success(let rooms):
-                   self.roomData=rooms
-                   self.tableView.reloadData()
-            case .failure(let err):
-                   ProgressHUD.showError(err.localizedDescription)
-            }
-        }
-    }
+//    func fetchAllChats(){
+//        ChatService.shared.fetchAllChatRoom { result in
+//            switch result {
+//            case .success(let rooms):
+//                   self.roomData=rooms
+//                   self.tableView.reloadData()
+//            case .failure(let err):
+//                   ProgressHUD.showError(err.localizedDescription)
+//            }
+//        }
+//    }
     
     @IBAction func logoutPressed(_ sender: Any) {
         
@@ -83,13 +86,66 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "chatCell", for: indexPath) as! RoomTableViewCell
-        cell.selectionStyle = .none
         cell.config(room: roomData[indexPath.row])
+        cell.selectionStyle = .none
         
         return cell
         
     }
 
+}
+
+extension ChatViewController{
+    
+    func fetchAllPrivateRoom(){
+        do {
+            // Create JSON Encoder
+            let decoder = JSONDecoder()
+            if let userData = UserDefaults.standard.data(forKey: "user"){
+            let currentUser = try decoder.decode(User.self, from: userData)
+
+                db.collection("PrivateRoom").whereField("membersId", arrayContains: currentUser.id!).addSnapshotListener({ snapshot, error in
+                    if let error = error {
+                        ProgressHUD.showError(error.localizedDescription)
+                    }
+                    guard let snapshot = snapshot else{
+                        print("snapshot nil")
+                        return
+                    }
+                    
+                    var allRoom: [PrivateRoom] = []
+                    
+                    for document in snapshot.documents {
+                        
+                        let roomDic        = document.data()
+                        let roomIdentifier = roomDic["roomIdentifier"] as! String
+                        let lastMessage    = roomDic["lastMessage"] as! String
+                        let isSeen         = roomDic["isSeen"] as! Bool
+                        let membersId      = roomDic["membersId"] as! [String]
+                        let userOneName    = roomDic["userOneName"] as! String
+                        let userOneAvatar    = roomDic["userOneAvatar"] as! String
+                        let userTwoName    = roomDic["userTwoName"] as! String
+                        let userTwoAvatar    = roomDic["userTwoAvatar"] as! String
+                        
+                        let privateRoom = PrivateRoom(roomIdentifier: roomIdentifier, membersId: membersId, lastMessage: lastMessage, isSeen: isSeen, userOneName: userOneName, userOneAvatar: userOneAvatar, userTwoName: userTwoName, userTwoAvatar: userTwoAvatar)
+                        allRoom.append(privateRoom)
+                    }
+                    
+                    DispatchQueue.main.async {
+                        
+                        let existRooms = allRoom.filter { room in
+                            room.lastMessage != ""
+                        }
+                        self.roomData = existRooms
+                        self.tableView.reloadData()
+                    }
+                    
+                }
+            )}
+        } catch {
+            print("Unable to Encode Note (\(error))")
+        }
+    }
 }
 
 
