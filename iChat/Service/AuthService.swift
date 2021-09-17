@@ -89,14 +89,8 @@ struct AuthService {
                     print("Please Register Your Account")
                     completion(.failure(AuthError.userNotFound))
                 }
-                
-                
-                
-                
-                
+                           
             }
-           
-        
         }
     }
     

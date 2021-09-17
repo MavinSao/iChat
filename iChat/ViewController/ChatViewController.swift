@@ -127,7 +127,7 @@ extension ChatViewController{
                         let userTwoName    = roomDic["userTwoName"] as! String
                         let userTwoAvatar    = roomDic["userTwoAvatar"] as! String
                         
-                        let privateRoom = PrivateRoom(roomIdentifier: roomIdentifier, membersId: membersId, lastMessage: lastMessage, isSeen: isSeen, userOneName: userOneName, userOneAvatar: userOneAvatar, userTwoName: userTwoName, userTwoAvatar: userTwoAvatar)
+                        let privateRoom = PrivateRoom(roomIdentifier: roomIdentifier, membersId: membersId, lastMessage: lastMessage, isSeen: isSeen, userOneName: userOneName, userOneAvatar: userOneAvatar, userTwoName: userTwoName, userTwoAvatar: userTwoAvatar, isUserOneTyping: false, isUserTwoTyping: false)
                         allRoom.append(privateRoom)
                     }
                     

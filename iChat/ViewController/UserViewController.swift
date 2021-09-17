@@ -28,7 +28,6 @@ class UserViewController: UIViewController {
         UserService.shared.fetchAllUsers { [self] result in
             switch result {
             case .success(let users):
-                
                 let allUsers = users.filter { user in
                     user.id != currentId
                 }
@@ -61,12 +60,17 @@ extension UserViewController: UITableViewDataSource,UITableViewDelegate{
         
         let withUser = allUsers[indexPath.row]
         
+          ProgressHUD.animationType = .horizontalCirclesPulse
+          ProgressHUD.animationType = .circleRotateChase
+          ProgressHUD.show()
+        
           ChatService.shared.createRoom(withUser: withUser) { result in
             switch result {
             case .success(let room):
                  print("The Room",room)
                 self.userDelegate = roomVc
                 self.userDelegate?.joinChat(room: room, recieverId: withUser.id!)
+                ProgressHUD.dismiss()
                 self.navigationController?.pushViewController(roomVc, animated: true)
             case .failure(let error):
                 ProgressHUD.showError(error.localizedDescription)

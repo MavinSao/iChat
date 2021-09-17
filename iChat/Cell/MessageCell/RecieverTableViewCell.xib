@@ -28,18 +28,19 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Helloooo" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WWu-St-Bt2" customClass="PaddingLabel" customModule="iChat" customModuleProvider="target">
-                        <rect key="frame" x="70" y="10" width="88" height="51"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Helloooo" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WWu-St-Bt2" customClass="SSPaddingLabel" customModule="iChat" customModuleProvider="target">
+                        <rect key="frame" x="70" y="10" width="68" height="51"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.85465588209999999" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="280" id="mCa-od-ukW"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="sWC-LM-WbB"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="highlightedColor" red="0.0" green="0.0" blue="0.0" alpha="0.85465588209999999" colorSpace="custom" customColorSpace="sRGB"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <real key="value" value="10"/>
+                                <real key="value" value="15"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="topInset">
                                 <real key="value" value="5"/>
@@ -52,9 +53,6 @@
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="rightInset">
                                 <real key="value" value="10"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                <real key="value" value="15"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </label>
@@ -75,9 +73,4 @@
             <point key="canvasLocation" x="106.5217391304348" y="80.691964285714278"/>
         </tableViewCell>
     </objects>
-    <designables>
-        <designable name="WWu-St-Bt2">
-            <size key="intrinsicContentSize" width="88" height="30.5"/>
-        </designable>
-    </designables>
 </document>

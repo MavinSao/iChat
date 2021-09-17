@@ -18,6 +18,10 @@ class RoomViewController: UIViewController {
     var room: PrivateRoom?
     var recieverId: String?
     let currentId = UserDefaults.standard.string(forKey: "currentID")
+    var isUserOne: Bool {
+        return currentId == room?.membersId![0]
+    }
+    
     
     let db = Firestore.firestore()
     
@@ -32,10 +36,14 @@ class RoomViewController: UIViewController {
         self.tableView.register(UINib(nibName: "RecieverTableViewCell", bundle: nil), forCellReuseIdentifier: "recieverCell")
         self.tableView.register(UINib(nibName: "SenderTableViewCell", bundle: nil), forCellReuseIdentifier: "senderCell")
         
-        IQKeyboardManager.shared().isEnableAutoToolbar = true
         prepareNav()
         fetchMessages()
+        listenUserTypping()
      
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     func prepareNav(){
@@ -43,24 +51,79 @@ class RoomViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = barButton
         
         
-        
-        if currentId == room?.membersId![0] {
+        if isUserOne {
             self.title = room?.userTwoName
         }else{
             self.title = room?.userOneName
         }
         
-        
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = false
+    //MARK: -Set user typing
+    func setUserTyping(isTyping: Bool){
+        
+        if isTyping {
+            if let safeRoom = room {
+                var messageTyping = Message(roomIdentifier: "", senderId: "", senderName: "", senderAvatar: "", recieverId: "", recieverName: "", recieverAvatar: "", sendDate: Date(), messageText: "Typing...", mediaURL: "", status: true, isDefault: true)
+               
+                if isUserOne {
+                    messageTyping.senderAvatar = safeRoom.userTwoAvatar
+                }else{
+                    messageTyping.senderAvatar = safeRoom.userOneAvatar
+                }
+                
+                self.messages.append(messageTyping)
+
+                self.tableView.performBatchUpdates ({
+                    self.tableView.insertRows(at: [IndexPath(row: self.messages.count - 1, section: 0)], with: .automatic)
+                }, completion: nil)
+            }
+        }else{
+            if messages.count != 0{
+                if self.messages[self.messages.count - 1].isDefault ?? false {
+                    self.messages.popLast()
+                    self.tableView.reloadData()
+                }
+            }
+           
+        }
     }
+    
 
     @IBAction func btnSendPressed(_ sender: Any) {
         let message = messageTextField.text!
-        ChatService.shared.sendMessage(message: message, roomIdentifier: room!.roomIdentifier!, reciverId: recieverId!)
+        if message != "" {
+            ChatService.shared.sendMessage(message: message, roomIdentifier: room!.roomIdentifier!, reciverId: recieverId!)
+            messageTextField.text = ""
+        }
     }
+    
+    @IBAction func textMessageBeginEditing(_ sender: Any) {
+        guard let safeRoom = room else {
+            return
+        }
+        
+        if isUserOne {
+            db.collection("PrivateRoom").document(safeRoom.roomIdentifier!).setData(["isUserOneTyping": true],merge: true)
+        }else{
+            db.collection("PrivateRoom").document(safeRoom.roomIdentifier!).setData(["isUserTwoTyping": true],merge: true)
+        }
+        
+       
+    }
+    
+    @IBAction func textMessageEndEditing(_ sender: Any) {
+        guard let safeRoom = room else {
+            return
+        }
+        if isUserOne {
+            db.collection("PrivateRoom").document(safeRoom.roomIdentifier!).setData(["isUserOneTyping": false],merge: true)
+        }else{
+            db.collection("PrivateRoom").document(safeRoom.roomIdentifier!).setData(["isUserTwoTyping": false],merge: true)
+        }
+    }
+    
+    
     
 }
 
@@ -97,6 +160,41 @@ extension RoomViewController: UITableViewDelegate,UITableViewDataSource{
 }
 
 extension RoomViewController {
+    
+    //MARK: -Listen User Typing
+    func listenUserTypping(){
+        guard let safeRoom = room else {
+            return
+        }
+        db.collection("PrivateRoom").document(safeRoom.roomIdentifier!).addSnapshotListener {[weak self] snapshot, error in
+            
+            guard let safeSnapshot = snapshot else {return}
+            
+            if safeSnapshot.exists {
+                if let self = self {
+                    if safeSnapshot["isUserOneTyping"] as! Bool && safeSnapshot["isUserTwoTyping"] as! Bool{
+                        self.setUserTyping(isTyping: true)
+                    }else{
+                        if self.isUserOne {
+                            if safeSnapshot["isUserTwoTyping"] as! Bool {
+                                self.setUserTyping(isTyping: true)
+                            }else{
+                                self.setUserTyping(isTyping: false)
+                            }
+                        }else{
+                            if safeSnapshot["isUserOneTyping"] as! Bool {
+                                self.setUserTyping(isTyping: true)
+                            }else{
+                                self.setUserTyping(isTyping: false)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    //MARK: -Fetch All Message
     func fetchMessages(){
         db.collection("Messages").whereField("roomIdentifier", isEqualTo: room!.roomIdentifier!).order(by: "sendDate",descending: false).addSnapshotListener({ snapshot, error in
             if let error = error {
@@ -132,6 +230,9 @@ extension RoomViewController {
             DispatchQueue.main.async {
                 self.messages = messagesData
                 self.tableView.reloadData()
+                if self.messages.count != 0 {
+                    self.tableView.scrollToBottom()
+                }
             }
             
         })

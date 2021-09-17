@@ -104,7 +104,7 @@ struct ChatService {
                 let userTwoName    = roomDic["userTwoName"] as! String
                 let userTwoAvatar    = roomDic["userTwoAvatar"] as! String
                 
-                let privateRoom = PrivateRoom(roomIdentifier: roomIdentifier, membersId: membersId, lastMessage: lastMessage, isSeen: isSeen, userOneName: userOneName, userOneAvatar: userOneAvatar, userTwoName: userTwoName, userTwoAvatar: userTwoAvatar)
+                let privateRoom = PrivateRoom(roomIdentifier: roomIdentifier, membersId: membersId, lastMessage: lastMessage, isSeen: isSeen, userOneName: userOneName, userOneAvatar: userOneAvatar, userTwoName: userTwoName, userTwoAvatar: userTwoAvatar, isUserOneTyping: false, isUserTwoTyping: false)
        
                 roomData.append(privateRoom)
                 
@@ -119,26 +119,71 @@ struct ChatService {
             return
         }
         
-        //Create Room Object
-        let privateId = currentUser.id! + "_" + withUser.id!
-        let privateRoom = PrivateRoom(roomIdentifier: privateId, membersId: [currentUser.id!,withUser.id!], lastMessage: "", isSeen: false, userOneName: currentUser.fullname, userOneAvatar: currentUser.avatar , userTwoName: withUser.fullname, userTwoAvatar: withUser.avatar)
         
-        db.collection("PrivateRoom").document(privateId).getDocument { snapshot, error in
+        //Check if room exists from targetUser
+        
+        let checkId =  withUser.id! + "_" + currentUser.id!
+    
+        db.collection("PrivateRoom").document(checkId).getDocument { snapshot, error in
             guard let snapshot = snapshot else {
                 print("nil snapshot")
                 return
             }
             if(!snapshot.exists){
+ 
+                //Check exist room with this id
+                let privateId = currentUser.id! + "_" + withUser.id!
                 
-                db.collection("PrivateRoom").document(privateId).setData(privateRoom.dictionary, merge: false) { error in
-                    if let error = error {
-                        compeltion(.failure(error))
-                    }else{
-                        compeltion(.success(privateRoom))
+                db.collection("PrivateRoom").document(privateId).getDocument { snapshot, error in
+                    guard let snapshot = snapshot else {
+                        print("nil snapshot")
+                        return
                     }
-                 }
+                    if(!snapshot.exists){
+                            let privateRoom = PrivateRoom(roomIdentifier: privateId, membersId: [currentUser.id!,withUser.id!], lastMessage: "", isSeen: false, userOneName: currentUser.fullname, userOneAvatar: currentUser.avatar , userTwoName: withUser.fullname, userTwoAvatar: withUser.avatar, isUserOneTyping: false, isUserTwoTyping: false)
+                             db.collection("PrivateRoom").document(privateId).setData(privateRoom.dictionary, merge: false) { error in
+                                            if let error = error {
+                                                compeltion(.failure(error))
+                                            }else{
+                                                print("open this new room")
+                                                compeltion(.success(privateRoom))
+                                            }
+                            }
+                    }else{
+                        let privateRoomDic        = snapshot.data()
+                        if let roomDic = privateRoomDic{
+                            let roomIdentifier = roomDic["roomIdentifier"] as! String
+                            let lastMessage    = roomDic["lastMessage"] as! String
+                            let isSeen         = roomDic["isSeen"] as! Bool
+                            let membersId      = roomDic["membersId"] as! [String]
+                            let userOneName    = roomDic["userOneName"] as! String
+                            let userOneAvatar    = roomDic["userOneAvatar"] as! String
+                            let userTwoName    = roomDic["userTwoName"] as! String
+                            let userTwoAvatar    = roomDic["userTwoAvatar"] as! String
+                            
+                            let existRoom = PrivateRoom(roomIdentifier: roomIdentifier, membersId: membersId, lastMessage: lastMessage, isSeen: isSeen, userOneName: userOneName, userOneAvatar: userOneAvatar, userTwoName: userTwoName, userTwoAvatar: userTwoAvatar,isUserOneTyping: false, isUserTwoTyping: false)
+                            compeltion(.success(existRoom))
+                            
+                        }
+                    }
+                }
             }else{
-                compeltion(.success(privateRoom))
+                let roomDic        = snapshot.data()
+                if let roomDic = roomDic{
+                    let roomIdentifier = roomDic["roomIdentifier"] as! String
+                    let lastMessage    = roomDic["lastMessage"] as! String
+                    let isSeen         = roomDic["isSeen"] as! Bool
+                    let membersId      = roomDic["membersId"] as! [String]
+                    let userOneName    = roomDic["userOneName"] as! String
+                    let userOneAvatar    = roomDic["userOneAvatar"] as! String
+                    let userTwoName    = roomDic["userTwoName"] as! String
+                    let userTwoAvatar    = roomDic["userTwoAvatar"] as! String
+                    
+                    let existRoom = PrivateRoom(roomIdentifier: roomIdentifier, membersId: membersId, lastMessage: lastMessage, isSeen: isSeen, userOneName: userOneName, userOneAvatar: userOneAvatar, userTwoName: userTwoName, userTwoAvatar: userTwoAvatar, isUserOneTyping: false, isUserTwoTyping: false)
+                    compeltion(.success(existRoom))
+                    
+                }
+               
             }
         }
  

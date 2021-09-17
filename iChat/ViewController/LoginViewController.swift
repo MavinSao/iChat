@@ -25,7 +25,8 @@ class LoginViewController: UIViewController {
         let mainTab = storyboard?.instantiateViewController(identifier: "MainTabBar")
         
         ProgressHUD.animationType = .horizontalCirclesPulse
-        ProgressHUD.showProgress(0.99)
+        ProgressHUD.animationType = .circleRotateChase
+        ProgressHUD.show()
     
         AuthService.shared.login(email: emailTextField.text!, password: passwordTextField.text!, completion: {
                 result in

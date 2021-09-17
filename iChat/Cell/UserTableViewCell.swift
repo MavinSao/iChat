@@ -15,10 +15,18 @@ class UserTableViewCell: UITableViewCell {
     @IBOutlet weak var emailLabel: UILabel!
     
     func config(user: User){
-        let profileURL = URL(string: user.avatar ?? "https://cliply.co/wp-content/uploads/2020/08/442008112_GLANCING_AVATAR_3D_400.png")
+        
+        var avatarURL = "https://cliply.co/wp-content/uploads/2020/08/442008112_GLANCING_AVATAR_3D_400.png"
+        if let avatar = user.avatar{
+            if avatar != ""{
+                avatarURL = avatar
+            }
+        }
+        let profileURL = URL(string:avatarURL)
         self.profileImage.kf.setImage(with: profileURL)
         self.usernameLabel.text = user.username
         self.emailLabel.text = user.email
+
     }
 
     

@@ -8,17 +8,18 @@
 import Foundation
 
 struct Message {
-    let roomIdentifier  : String?
-    let senderId        : String?
-    let senderName      : String?
-    let senderAvatar    : String?
-    let recieverId      : String?
-    let recieverName    : String?
-    let recieverAvatar  : String?
-    let sendDate        : Date?
-    let messageText     : String?
-    let mediaURL        : String?
-    let status          : Bool?
+    var roomIdentifier  : String?
+    var senderId        : String?
+    var senderName      : String?
+    var senderAvatar    : String?
+    var recieverId      : String?
+    var recieverName    : String?
+    var recieverAvatar  : String?
+    var sendDate        : Date?
+    var messageText     : String?
+    var mediaURL        : String?
+    var status          : Bool?
+    var isDefault       : Bool?
     
     var dictionary: [String:Any] {
         return [

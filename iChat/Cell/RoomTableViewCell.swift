@@ -20,7 +20,7 @@ class RoomTableViewCell: UITableViewCell {
         let currID = defaults.string(forKey: "currentID")
         
         let pfURLOne = URL(string: room.userOneAvatar!)
-        let pfURLTwo = URL(string: room.userOneAvatar!)
+        let pfURLTwo = URL(string: room.userTwoAvatar!)
         
         if room.membersId![0] == currID {
             self.usernameLabel.text = room.userTwoName
