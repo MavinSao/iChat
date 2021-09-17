@@ -71,6 +71,7 @@ extension UserViewController: UITableViewDataSource,UITableViewDelegate{
                 self.userDelegate = roomVc
                 self.userDelegate?.joinChat(room: room, recieverId: withUser.id!)
                 ProgressHUD.dismiss()
+//                self.performSegue(withIdentifier: "fromUser", sender: nil)
                 self.navigationController?.pushViewController(roomVc, animated: true)
             case .failure(let error):
                 ProgressHUD.showError(error.localizedDescription)

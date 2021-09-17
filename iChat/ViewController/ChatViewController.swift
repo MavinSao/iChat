@@ -62,6 +62,22 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate{
         roomData.count
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            let deleteId = roomData[indexPath.row].roomIdentifier
+            
+            roomData.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            guard let safeDeleteId = deleteId else {
+                return
+            }
+            
+            ChatService.shared.deleteChatRoom(roomId: safeDeleteId)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let currId = UserDefaults.standard.string(forKey: "currentID")
@@ -78,6 +94,8 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate{
 
         self.userDelegate = roomVC
         userDelegate?.joinChat(room: roomObj, recieverId: safeReciverId[0])
+        
+//        self.performSegue(withIdentifier: "fromRoom", sender: nil)
         
         self.navigationController?.pushViewController(roomVC, animated: true)
         

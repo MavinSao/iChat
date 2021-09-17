@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import ProgressHUD
 
 struct ChatService {
     static let shared = ChatService()
@@ -65,11 +66,29 @@ struct ChatService {
             
             }
         }
-        
-       
-        
-        
-        
+    }
+    
+    func deleteChatRoom(roomId: String) {
+        db.collection("PrivateRoom").document(roomId).delete { error in
+            if let error = error{
+                ProgressHUD.showError(error.localizedDescription)
+            }
+            
+            db.collection("Messages").whereField("roomIdentifier", isEqualTo: roomId).getDocuments { snapshots, error in
+                
+                if let error = error {
+                    ProgressHUD.showError(error.localizedDescription)
+                }
+            
+                guard let safeSnapshots = snapshots else {return}
+                
+                for snapshot in safeSnapshots.documents {
+                    snapshot.reference.delete()
+                }
+                
+            }
+            
+        }
     }
     
     func fetchAllChatRoom(completion: @escaping (Result<[PrivateRoom],Error>)->Void){

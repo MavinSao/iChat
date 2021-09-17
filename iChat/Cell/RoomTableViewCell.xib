@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,10 +18,11 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="UJl-He-Gy6">
-                        <rect key="frame" x="10" y="15" width="332" height="85"/>
+                        <rect key="frame" x="10" y="5" width="332" height="95"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="A8Q-Xq-1sr">
                                 <rect key="frame" x="0.0" y="1.5" width="85" height="82"/>
+                                <color key="backgroundColor" systemColor="systemGray4Color"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="85" id="rjn-yS-aJp"/>
@@ -52,20 +54,20 @@
                         </subviews>
                     </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gAL-az-blV">
-                        <rect key="frame" x="10" y="106" width="332" height="2"/>
-                        <color key="backgroundColor" red="0.90318106310000001" green="0.90318106310000001" blue="0.90318106310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="10" y="104" width="332" height="1"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="2" id="tKz-hp-wLc"/>
+                            <constraint firstAttribute="height" constant="1" id="tKz-hp-wLc"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="gAL-az-blV" secondAttribute="bottom" constant="2" id="C6C-Xg-g5Y"/>
+                    <constraint firstItem="gAL-az-blV" firstAttribute="leading" secondItem="A8Q-Xq-1sr" secondAttribute="leading" id="9qJ-Ch-VTg"/>
+                    <constraint firstAttribute="bottom" secondItem="gAL-az-blV" secondAttribute="bottom" constant="5" id="C6C-Xg-g5Y"/>
                     <constraint firstAttribute="trailing" secondItem="gAL-az-blV" secondAttribute="trailing" constant="10" id="K9n-cR-pk2"/>
                     <constraint firstAttribute="bottom" secondItem="UJl-He-Gy6" secondAttribute="bottom" constant="10" id="U6k-ti-Eha"/>
                     <constraint firstAttribute="trailing" secondItem="UJl-He-Gy6" secondAttribute="trailing" constant="10" id="bDZ-Q4-bsJ"/>
-                    <constraint firstItem="UJl-He-Gy6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="dUE-fZ-Xyf"/>
-                    <constraint firstItem="gAL-az-blV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="pla-Jh-nRh"/>
+                    <constraint firstItem="UJl-He-Gy6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="dUE-fZ-Xyf"/>
                     <constraint firstItem="UJl-He-Gy6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="qDH-7B-3Ko"/>
                 </constraints>
             </tableViewCellContentView>
@@ -80,5 +82,11 @@
     </objects>
     <resources>
         <image name="person.fill" catalog="system" width="128" height="120"/>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

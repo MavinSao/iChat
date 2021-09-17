@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 class RegisterViewController: UIViewController {
 
@@ -33,19 +34,22 @@ class RegisterViewController: UIViewController {
         
         if password == confirmPassword {
             
+            ProgressHUD.animationType = .horizontalCirclesPulse
+            ProgressHUD.colorHUD = .black
+            ProgressHUD.show()
             AuthService.shared.register(username: username, fullname: fullname, email: email, password: password, avatar: "", completion: {result in
                 
                 switch result {
                     case .success(let message):
-                          print(message)
+                        ProgressHUD.showSuccess(message)
                     case .failure(let error):
-                          print(error.localizedDescription)
+                        ProgressHUD.showError(error.localizedDescription)
                 }
                 
             })
             
         }else{
-            print("Please check your password and confirm password...")
+            ProgressHUD.showError("Please check your password and confirm password...")
         }
         
         

@@ -9,10 +9,12 @@ import UIKit
 import ProgressHUD
 import FirebaseFirestore
 import IQKeyboardManager
+import Kingfisher
 
 class RoomViewController: UIViewController {
     
     @IBOutlet weak var messageTextField: UITextField!
+    
     
     var messages: [Message] = []
     var room: PrivateRoom?
@@ -47,14 +49,18 @@ class RoomViewController: UIViewController {
     }
     
     func prepareNav(){
-        let barButton = UIBarButtonItem(image: UIImage(named: "personal.fill"), style: .plain, target: self, action: nil)
-        self.navigationItem.rightBarButtonItem = barButton
         
+        let barButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+        self.navigationController?.navigationItem.rightBarButtonItem = barButton
         
         if isUserOne {
             self.title = room?.userTwoName
+            let url = URL(string: room?.userTwoAvatar ?? "")
+          
         }else{
             self.title = room?.userOneName
+            let url = URL(string: room?.userOneAvatar ?? "")
+           
         }
         
     }
@@ -131,6 +137,7 @@ extension RoomViewController: UserProtocolDelegate{
     func didSent(recievedUser: User) {}
     
     func joinChat(room: PrivateRoom, recieverId: String) {
+        print("reciever",room)
         self.room = room
         self.recieverId = recieverId
     }
@@ -196,6 +203,9 @@ extension RoomViewController {
     
     //MARK: -Fetch All Message
     func fetchMessages(){
+        
+        print("roooom",room)
+        
         db.collection("Messages").whereField("roomIdentifier", isEqualTo: room!.roomIdentifier!).order(by: "sendDate",descending: false).addSnapshotListener({ snapshot, error in
             if let error = error {
                 print("err",error.localizedDescription)
