@@ -21,7 +21,6 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
     
@@ -35,7 +34,8 @@ class RegisterViewController: UIViewController {
         if password == confirmPassword {
             
             ProgressHUD.animationType = .horizontalCirclesPulse
-            ProgressHUD.colorHUD = .black
+            ProgressHUD.colorHUD = .darkGray
+            ProgressHUD.colorBackground = .systemGray6
             ProgressHUD.show()
             AuthService.shared.register(username: username, fullname: fullname, email: email, password: password, avatar: "", completion: {result in
                 

@@ -21,12 +21,13 @@ class ChatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.tableView.register(UINib(nibName: "RoomTableViewCell", bundle: nil), forCellReuseIdentifier: "chatCell")
         fetchAllPrivateRoom()
         
-        
+        print("view did load")
     }
+    
+    
 
     
 
@@ -52,48 +53,34 @@ class ChatViewController: UIViewController {
 extension ChatViewController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        roomData.count
+        self.roomData.count
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let deleteId = roomData[indexPath.row].roomIdentifier
+        guard let safeDeleteId = deleteId else {
+            return
+        }
         if editingStyle == .delete {
             
-            let deleteId = roomData[indexPath.row].roomIdentifier
+           
+            print("=>start remove")
             
-            roomData.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            
-            guard let safeDeleteId = deleteId else {
-                return
-            }
-            
+            print("=>start delete ui")
+            self.roomData.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+//            ChatService.shared.deleteAllMessageByRoom(roomId: safeDeleteId)
             ChatService.shared.deleteChatRoom(roomId: safeDeleteId)
+            
+            print("=>done")
+
         }
     }
-//
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        guard let indexPath = tableView.indexPathForSelectedRow else { return }
-//
-//        let currId = UserDefaults.standard.string(forKey: "currentID")
-//        let reciverId = roomData[indexPath.row].membersId?.filter({ uid in
-//            uid != currId
-//        })
-//
-//        let roomObj = roomData[indexPath.row]
-//
-//        guard let safeReciverId = reciverId else {return}
-//
-//        let roomVc = segue.destination as? RoomViewController
-//        self.userDelegate = roomVc
-//        userDelegate?.joinChat(room: roomObj, recieverId: safeReciverId[0])
-//
-//    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let currId = UserDefaults.standard.string(forKey: "currentID")
-        let roomVC = storyboard?.instantiateViewController(identifier: "roomVC") as! RoomViewController
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let indexPath = tableView.indexPathForSelectedRow else { return }
+
+        let currId = UserDefaults.standard.string(forKey: "currentID")
         let reciverId = roomData[indexPath.row].membersId?.filter({ uid in
             uid != currId
         })
@@ -102,16 +89,36 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate{
 
         guard let safeReciverId = reciverId else {return}
 
-        self.userDelegate = roomVC
+        let roomVc = segue.destination as? RoomViewController
+        self.userDelegate = roomVc
         userDelegate?.joinChat(room: roomObj, recieverId: safeReciverId[0])
-//          performSegue(withIdentifier: "fromRoom", sender: self)
+
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        self.navigationController?.pushViewController(roomVC, animated: true)
+//        let currId = UserDefaults.standard.string(forKey: "currentID")
+//        let roomVC = storyboard?.instantiateViewController(identifier: "roomVC") as! RoomViewController
+//
+//        let reciverId = roomData[indexPath.row].membersId?.filter({ uid in
+//            uid != currId
+//        })
+//
+//        let roomObj = roomData[indexPath.row]
+//
+//        guard let safeReciverId = reciverId else {return}
+//
+//        self.userDelegate = roomVC
+//        userDelegate?.joinChat(room: roomObj, recieverId: safeReciverId[0])
+          performSegue(withIdentifier: "fromRoom", sender: self)
+        
+//        self.navigationController?.pushViewController(roomVC, animated: true)
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "chatCell", for: indexPath) as! RoomTableViewCell
+        
         cell.config(room: roomData[indexPath.row])
         cell.selectionStyle = .none
         
@@ -164,7 +171,6 @@ extension ChatViewController{
                     }
                     
                     DispatchQueue.main.async {
-                        
                         let existRooms = allRoom.filter { room in
                             room.lastMessage != ""
                         }

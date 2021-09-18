@@ -35,8 +35,7 @@ struct ChatService {
     
     func fetchMessagesByRoomId(roomIdentifier: String,completion: @escaping (Result<[Message],Error>)->Void){
         
-       
-            
+
    }
         
 
@@ -74,26 +73,28 @@ struct ChatService {
         }
     }
     
+    func deleteAllMessageByRoom(roomId: String)  {
+             db.collection("Messages").whereField("roomIdentifier", isEqualTo: roomId).getDocuments { snapshots, error in
+        
+                        if let error = error {
+                            ProgressHUD.showError(error.localizedDescription)
+                        }
+        
+                        guard let safeSnapshots = snapshots else {return}
+        
+                        for snapshot in safeSnapshots.documents {
+                            snapshot.reference.delete()
+                        }
+        
+               }
+    }
+    
     func deleteChatRoom(roomId: String) {
         db.collection("PrivateRoom").document(roomId).delete { error in
             if let error = error{
                 ProgressHUD.showError(error.localizedDescription)
             }
-            
-            db.collection("Messages").whereField("roomIdentifier", isEqualTo: roomId).getDocuments { snapshots, error in
-                
-                if let error = error {
-                    ProgressHUD.showError(error.localizedDescription)
-                }
-            
-                guard let safeSnapshots = snapshots else {return}
-                
-                for snapshot in safeSnapshots.documents {
-                    snapshot.reference.delete()
-                }
-                
-            }
-            
+            self.deleteAllMessageByRoom(roomId: roomId)
         }
     }
     

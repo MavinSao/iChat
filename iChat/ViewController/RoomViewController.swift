@@ -44,6 +44,7 @@ class RoomViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillHideNotification, object: nil)
+        overrideUserInterfaceStyle = .light
         
         prepareNav()
         fetchMessages()
@@ -286,7 +287,9 @@ extension RoomViewController {
                 self.messages = messagesData
                 self.tableView.reloadData()
                 if self.messages.count != 0 {
-                    self.tableView.scrollToBottom()
+                    if self.isViewLoaded {
+                        self.tableView.scrollToBottom()
+                    }        
                 }
             }
             

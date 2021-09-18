@@ -159,7 +159,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Me7-vn-mmD">
-                                <rect key="frame" x="25" y="74" width="44" height="36"/>
+                                <rect key="frame" x="25" y="94" width="44" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Back">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -282,7 +282,7 @@
                             <constraint firstItem="GHY-zT-R5y" firstAttribute="leading" secondItem="UQU-Qs-jd4" secondAttribute="leading" id="Jy9-Xw-6JZ"/>
                             <constraint firstItem="GHY-zT-R5y" firstAttribute="top" secondItem="UQU-Qs-jd4" secondAttribute="bottom" constant="10" id="Leg-CR-fxR"/>
                             <constraint firstItem="qCE-Co-zZv" firstAttribute="top" secondItem="kEK-sF-tbc" secondAttribute="bottom" constant="10" id="R2D-fs-DBd"/>
-                            <constraint firstItem="Me7-vn-mmD" firstAttribute="top" secondItem="lGs-bc-z6i" secondAttribute="top" constant="30" id="S6k-uR-Imr"/>
+                            <constraint firstItem="Me7-vn-mmD" firstAttribute="top" secondItem="lGs-bc-z6i" secondAttribute="top" constant="50" id="S6k-uR-Imr"/>
                             <constraint firstItem="lGs-bc-z6i" firstAttribute="trailing" secondItem="ef0-Zf-rK2" secondAttribute="trailing" constant="25" id="Tqo-KM-IfB"/>
                             <constraint firstItem="UQU-Qs-jd4" firstAttribute="top" secondItem="akg-Be-hfN" secondAttribute="bottom" constant="25" id="UtW-CS-Dkx"/>
                             <constraint firstItem="lGs-bc-z6i" firstAttribute="trailing" secondItem="ZJr-5b-0b6" secondAttribute="trailing" constant="25" id="WXc-b1-TlI"/>
@@ -358,6 +358,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="LPe-fZ-1rW" id="QVg-GB-1eQ"/>
+                        <segue destination="68w-8k-Up7" kind="show" identifier="fromRoom" id="iR6-FQ-veI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VaY-j5-gtk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -379,7 +380,7 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="q8J-Ne-Yhr"/>
                             </scrollView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NF0-A7-OzM">
-                                <rect key="frame" x="0.0" y="54" width="414" height="752"/>
+                                <rect key="frame" x="0.0" y="150" width="414" height="656"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="68w-8k-Up7" id="0Ae-ir-Br6"/>
@@ -474,10 +475,10 @@
             </objects>
             <point key="canvasLocation" x="3789.8550724637685" y="55.580357142857139"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab View Controller-->
         <scene sceneID="7tK-sw-0Af">
             <objects>
-                <tabBarController storyboardIdentifier="MainTabBar" automaticallyAdjustsScrollViewInsets="NO" id="mhm-5c-U6I" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBar" automaticallyAdjustsScrollViewInsets="NO" id="mhm-5c-U6I" customClass="MainTabViewController" customModule="iChat" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="78z-Ys-U07">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>

@@ -18,6 +18,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
 //        IQKeyboardManager.shared().isEnabled = false
+        
+//        do {
+//            // Create JSON Encoder
+//            let decoder = JSONDecoder()
+//            if let userData = UserDefaults.standard.data(forKey: "user"){
+//               let user = try decoder.decode(User.self, from: userData)
+//                if let uid = UserDefaults.standard.string(forKey: "currentID"){
+//                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+//                    if user.id == uid {
+//                       
+//                        let mainTab = storyBoard.instantiateViewController(identifier: "MainTabBar") as! MainTabViewController
+//                        UIApplication.shared.windows.first?.rootViewController = mainTab
+//                    }else{
+//                        let LoginVC = storyBoard.instantiateViewController(identifier: "LoginVC") as! LoginViewController
+//                        UIApplication.shared.windows.first?.rootViewController = LoginVC
+//                        
+//                    }
+//                }
+//            }
+//        } catch {
+//            print("Unable to Encode Note (\(error))")
+//        }
+        
         return true
     }
 

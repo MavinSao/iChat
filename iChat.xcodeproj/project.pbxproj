@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		846DE47826F65C070037717B /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DE47726F65C070037717B /* MainTabViewController.swift */; };
 		84A87F1826F2552900C223F1 /* AnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A87F1726F2552900C223F1 /* AnimationType.swift */; };
 		84A87F1C26F2631300C223F1 /* RoomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A87F1A26F2631300C223F1 /* RoomTableViewCell.swift */; };
 		84A87F1D26F2631300C223F1 /* RoomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A87F1B26F2631300C223F1 /* RoomTableViewCell.xib */; };
@@ -48,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		0A9B395E7A79D33AA502A493 /* Pods-iChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChat.debug.xcconfig"; path = "Target Support Files/Pods-iChat/Pods-iChat.debug.xcconfig"; sourceTree = "<group>"; };
+		846DE47726F65C070037717B /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
 		84A87F1726F2552900C223F1 /* AnimationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationType.swift; sourceTree = "<group>"; };
 		84A87F1A26F2631300C223F1 /* RoomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTableViewCell.swift; sourceTree = "<group>"; };
 		84A87F1B26F2631300C223F1 /* RoomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoomTableViewCell.xib; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				D8D3EB0F26F21292008ED490 /* RegisterViewController.swift */,
 				D8F8598526F2F8E200F981E3 /* RoomViewController.swift */,
 				D8C98D2226F5C4BC0053BABC /* ProfileSettingViewController.swift */,
+				846DE47726F65C070037717B /* MainTabViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				D8F8598626F2F8E200F981E3 /* RoomViewController.swift in Sources */,
 				D8D3EB0C26F211CF008ED490 /* UserViewController.swift in Sources */,
 				D8D7585026F0AC9A00F00779 /* ViewController.swift in Sources */,
+				846DE47826F65C070037717B /* MainTabViewController.swift in Sources */,
 				D8C1188B26F44B0800DDDFB8 /* SSPaddingLabel.swift in Sources */,
 				D8D3EB1026F21292008ED490 /* RegisterViewController.swift in Sources */,
 				D8D3EAF826F18496008ED490 /* ChatService.swift in Sources */,
