@@ -14,6 +14,7 @@
 		D8C1188D26F4659E00DDDFB8 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1188C26F4659E00DDDFB8 /* UITableView+Extension.swift */; };
 		D8C1189026F4698F00DDDFB8 /* TypingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1188E26F4698E00DDDFB8 /* TypingTableViewCell.swift */; };
 		D8C1189126F4698F00DDDFB8 /* TypingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8C1188F26F4698E00DDDFB8 /* TypingTableViewCell.xib */; };
+		D8C98D2326F5C4BC0053BABC /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C98D2226F5C4BC0053BABC /* ProfileSettingViewController.swift */; };
 		D8D3EAF826F18496008ED490 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D3EAF726F18496008ED490 /* ChatService.swift */; };
 		D8D3EAFC26F18545008ED490 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D3EAFB26F18545008ED490 /* User.swift */; };
 		D8D3EAFE26F18621008ED490 /* PrivateRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D3EAFD26F18621008ED490 /* PrivateRoom.swift */; };
@@ -56,6 +57,7 @@
 		D8C1188C26F4659E00DDDFB8 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		D8C1188E26F4698E00DDDFB8 /* TypingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingTableViewCell.swift; sourceTree = "<group>"; };
 		D8C1188F26F4698E00DDDFB8 /* TypingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TypingTableViewCell.xib; sourceTree = "<group>"; };
+		D8C98D2226F5C4BC0053BABC /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		D8D3EAF726F18496008ED490 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 		D8D3EAFB26F18545008ED490 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D8D3EAFD26F18621008ED490 /* PrivateRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateRoom.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				D8D3EB0D26F21285008ED490 /* LoginViewController.swift */,
 				D8D3EB0F26F21292008ED490 /* RegisterViewController.swift */,
 				D8F8598526F2F8E200F981E3 /* RoomViewController.swift */,
+				D8C98D2226F5C4BC0053BABC /* ProfileSettingViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				D8D3EB0A26F211C2008ED490 /* ChatViewController.swift in Sources */,
 				D8D3EB0226F1899A008ED490 /* AuthService.swift in Sources */,
 				D8D3EB0E26F21285008ED490 /* LoginViewController.swift in Sources */,
+				D8C98D2326F5C4BC0053BABC /* ProfileSettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

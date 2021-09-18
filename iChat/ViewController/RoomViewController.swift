@@ -14,8 +14,10 @@ import Kingfisher
 class RoomViewController: UIViewController {
     
     @IBOutlet weak var messageTextField: UITextField!
+
+    @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
     
-    
+
     var messages: [Message] = []
     var room: PrivateRoom?
     var recieverId: String?
@@ -37,6 +39,11 @@ class RoomViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.tableView.register(UINib(nibName: "RecieverTableViewCell", bundle: nil), forCellReuseIdentifier: "recieverCell")
         self.tableView.register(UINib(nibName: "SenderTableViewCell", bundle: nil), forCellReuseIdentifier: "senderCell")
+        IQKeyboardManager.shared().isEnabled = false
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         prepareNav()
         fetchMessages()
@@ -44,62 +51,85 @@ class RoomViewController: UIViewController {
      
     }
     
+    func unsubscribeFromAllNotifications() {
+            NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func handleKeyboardNotification(notification: NSNotification){
+    
+        if notification.userInfo != nil {
+                if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+                       let keyboardRectangle = keyboardFrame.cgRectValue
+                       let keyboardHeight = keyboardRectangle.height
+                    
+                    if notification.name == UIResponder.keyboardWillShowNotification{
+                        self.bottomViewHeight.constant = keyboardHeight + 80
+                        self.view.layoutIfNeeded()
+                    }else{
+                        self.bottomViewHeight.constant = self.bottomViewHeight.constant - keyboardHeight
+                        self.view.layoutIfNeeded()
+                    }
+                   }
+            }
+        if self.messages.count != 0 {
+            self.tableView.scrollToBottom()
+        }
+    }
+    
+    
     override func viewWillDisappear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
+        unsubscribeFromAllNotifications()
+        IQKeyboardManager.shared().isEnabled = true
     }
     
     func prepareNav(){
-        
-        let barButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
-        self.navigationController?.navigationItem.rightBarButtonItem = barButton
-        
         if isUserOne {
             self.title = room?.userTwoName
-            let url = URL(string: room?.userTwoAvatar ?? "")
-          
         }else{
             self.title = room?.userOneName
-            let url = URL(string: room?.userOneAvatar ?? "")
-           
         }
-        
     }
     
     //MARK: -Set user typing
     func setUserTyping(isTyping: Bool){
         
-        if isTyping {
-            if let safeRoom = room {
-                var messageTyping = Message(roomIdentifier: "", senderId: "", senderName: "", senderAvatar: "", recieverId: "", recieverName: "", recieverAvatar: "", sendDate: Date(), messageText: "Typing...", mediaURL: "", status: true, isDefault: true)
-               
-                if isUserOne {
-                    messageTyping.senderAvatar = safeRoom.userTwoAvatar
-                }else{
-                    messageTyping.senderAvatar = safeRoom.userOneAvatar
-                }
-                
-                self.messages.append(messageTyping)
+            if isTyping {
+                if let safeRoom = room {
+                    var messageTyping = Message(roomIdentifier: "", senderId: "", senderName: "", senderAvatar: "", recieverId: "", recieverName: "", recieverAvatar: "", sendDate: Date(), messageText: "Typing...", mediaURL: "", status: true, isDefault: true)
+                   
+                    if isUserOne {
+                        messageTyping.senderAvatar = safeRoom.userTwoAvatar
+                    }else{
+                        messageTyping.senderAvatar = safeRoom.userOneAvatar
+                    }
+                      
+                    if self.messages.count != 0 {
+                        if !(self.messages[self.messages.count - 1].isDefault ?? false) {
+                            self.messages.append(messageTyping)
+                            self.tableView.performBatchUpdates ({
+                                self.tableView.insertRows(at: [IndexPath(row: self.messages.count - 1, section: 0)], with: .automatic)
+                            }, completion: nil)
+                       }
+                    }
 
-                self.tableView.performBatchUpdates ({
-                    self.tableView.insertRows(at: [IndexPath(row: self.messages.count - 1, section: 0)], with: .automatic)
-                }, completion: nil)
-            }
-        }else{
-            if messages.count != 0{
-                if self.messages[self.messages.count - 1].isDefault ?? false {
-                    self.messages.popLast()
-                    self.tableView.reloadData()
+                }
+            }else{
+                if messages.count != 0{
+                    if self.messages[self.messages.count - 1].isDefault ?? false {
+                        self.messages.popLast()
+                        self.tableView.reloadData()
+                    }
                 }
             }
-           
-        }
+        
     }
     
 
     @IBAction func btnSendPressed(_ sender: Any) {
         let message = messageTextField.text!
         if message != "" {
-            ChatService.shared.sendMessage(message: message, roomIdentifier: room!.roomIdentifier!, reciverId: recieverId!)
+            ChatService.shared.sendMessage(message: message, roomIdentifier: room!.roomIdentifier!, reciverId: recieverId!, isUserOne: isUserOne)
             messageTextField.text = ""
         }
     }
@@ -166,6 +196,15 @@ extension RoomViewController: UITableViewDelegate,UITableViewDataSource{
     }
 }
 
+
+//MARK: - Handle keyboard
+
+extension RoomViewController{
+    
+}
+
+
+//MARK: - Listen Function and fetch firestore
 extension RoomViewController {
     
     //MARK: -Listen User Typing
@@ -201,10 +240,16 @@ extension RoomViewController {
         }
     }
     
+    
     //MARK: -Fetch All Message
     func fetchMessages(){
         
-        print("roooom",room)
+        if isUserOne{
+            db.collection("PrivateRoom").document(room!.roomIdentifier!).setData(["isUserOneSeen":true], merge: true)
+        }else{
+            db.collection("PrivateRoom").document(room!.roomIdentifier!).setData(["isUserTwoSeen":true], merge: true)
+        }
+     
         
         db.collection("Messages").whereField("roomIdentifier", isEqualTo: room!.roomIdentifier!).order(by: "sendDate",descending: false).addSnapshotListener({ snapshot, error in
             if let error = error {

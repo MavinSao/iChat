@@ -52,7 +52,6 @@ class RegisterViewController: UIViewController {
             ProgressHUD.showError("Please check your password and confirm password...")
         }
         
-        
     }
     
     @IBAction func backPressed(_ sender: Any) {

@@ -18,6 +18,8 @@ struct PrivateRoom {
     let userTwoAvatar  : String?
     let isUserOneTyping  : Bool?
     let isUserTwoTyping  : Bool?
+    let isUserOneSeen  : Bool?
+    let isUserTwoSeen  : Bool?
     
     var dictionary: [String:Any] {
         return [
@@ -30,7 +32,9 @@ struct PrivateRoom {
             "userTwoName": userTwoName ?? "",
             "userTwoAvatar": userTwoAvatar ?? "",
             "isUserOneTyping": isUserOneTyping ?? false,
-            "isUserTwoTyping": isUserTwoTyping ?? false
+            "isUserTwoTyping": isUserTwoTyping ?? false,
+            "isUserOneSeen": isUserOneSeen ?? false,
+            "isUserTwoSeen": isUserTwoSeen ?? false,
             
         ]
     }

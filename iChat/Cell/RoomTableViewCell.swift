@@ -39,10 +39,25 @@ class RoomTableViewCell: UITableViewCell {
         if room.membersId![0] == currID {
             self.usernameLabel.text = room.userTwoName
             self.profileImage.kf.setImage(with: pfURLTwo)
+            
+            if room.isUserOneSeen! {
+                self.backgroundColor = .white
+            }else{
+                self.backgroundColor = .systemGray6
+            }
+            
         }else{
+            print("roomUserTwo",room)
             self.usernameLabel.text = room.userOneName
             self.profileImage.kf.setImage(with: pfURLOne)
+            
+            if room.isUserTwoSeen! {
+                self.backgroundColor = .white
+            }else{
+                self.backgroundColor = .systemGray6
+            }
         }
+        
         self.messageLabel.text = room.lastMessage
         
     }

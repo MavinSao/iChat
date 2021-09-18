@@ -8,17 +8,17 @@
 import Foundation
 
 struct Message {
-    var roomIdentifier  : String?
-    var senderId        : String?
-    var senderName      : String?
+    let roomIdentifier  : String?
+    let senderId        : String?
+    let senderName      : String?
     var senderAvatar    : String?
-    var recieverId      : String?
-    var recieverName    : String?
+    let recieverId      : String?
+    let recieverName    : String?
     var recieverAvatar  : String?
-    var sendDate        : Date?
+    let sendDate        : Date?
     var messageText     : String?
-    var mediaURL        : String?
-    var status          : Bool?
+    let mediaURL        : String?
+    let status          : Bool?
     var isDefault       : Bool?
     
     var dictionary: [String:Any] {
@@ -33,6 +33,7 @@ struct Message {
             "messageText"     : messageText ?? "",
             "sendDate" : sendDate ?? Date().timeIntervalSince1970,
             "mediaURL" : mediaURL ?? "",
+            "isDefault" : isDefault ?? false,
             "status" : status ?? "",
         ]
     }

@@ -15,6 +15,7 @@ class ChatViewController: UIViewController {
     var userDelegate: UserProtocolDelegate?
     
     var roomData: [PrivateRoom] = []
+    let currentId = UserDefaults.standard.string(forKey: "currentID")
     
     private let db = Firestore.firestore()
     
@@ -26,19 +27,11 @@ class ChatViewController: UIViewController {
         
         
     }
+
     
-//    func fetchAllChats(){
-//        ChatService.shared.fetchAllChatRoom { result in
-//            switch result {
-//            case .success(let rooms):
-//                   self.roomData=rooms
-//                   self.tableView.reloadData()
-//            case .failure(let err):
-//                   ProgressHUD.showError(err.localizedDescription)
-//            }
-//        }
-//    }
+
     
+    //MARK: -Logout
     @IBAction func logoutPressed(_ sender: Any) {
         
         let appDelegate = UIApplication.shared.windows.first
@@ -77,6 +70,24 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate{
             ChatService.shared.deleteChatRoom(roomId: safeDeleteId)
         }
     }
+//
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        guard let indexPath = tableView.indexPathForSelectedRow else { return }
+//
+//        let currId = UserDefaults.standard.string(forKey: "currentID")
+//        let reciverId = roomData[indexPath.row].membersId?.filter({ uid in
+//            uid != currId
+//        })
+//
+//        let roomObj = roomData[indexPath.row]
+//
+//        guard let safeReciverId = reciverId else {return}
+//
+//        let roomVc = segue.destination as? RoomViewController
+//        self.userDelegate = roomVc
+//        userDelegate?.joinChat(room: roomObj, recieverId: safeReciverId[0])
+//
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -88,21 +99,18 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate{
         })
 
         let roomObj = roomData[indexPath.row]
-        print(roomObj)
 
         guard let safeReciverId = reciverId else {return}
 
         self.userDelegate = roomVC
         userDelegate?.joinChat(room: roomObj, recieverId: safeReciverId[0])
-        
-//        self.performSegue(withIdentifier: "fromRoom", sender: nil)
+//          performSegue(withIdentifier: "fromRoom", sender: self)
         
         self.navigationController?.pushViewController(roomVC, animated: true)
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "chatCell", for: indexPath) as! RoomTableViewCell
         cell.config(room: roomData[indexPath.row])
         cell.selectionStyle = .none
@@ -133,7 +141,11 @@ extension ChatViewController{
                     
                     var allRoom: [PrivateRoom] = []
                     
+                  
+                    
                     for document in snapshot.documents {
+                        
+                        print("snapshot=>",document.data())
                         
                         let roomDic        = document.data()
                         let roomIdentifier = roomDic["roomIdentifier"] as! String
@@ -144,8 +156,10 @@ extension ChatViewController{
                         let userOneAvatar    = roomDic["userOneAvatar"] as! String
                         let userTwoName    = roomDic["userTwoName"] as! String
                         let userTwoAvatar    = roomDic["userTwoAvatar"] as! String
+                        let isUserOneSeen  = roomDic["isUserOneSeen"] as! Bool
+                        let isUserTwoSeen  = roomDic["isUserTwoSeen"] as! Bool
                         
-                        let privateRoom = PrivateRoom(roomIdentifier: roomIdentifier, membersId: membersId, lastMessage: lastMessage, isSeen: isSeen, userOneName: userOneName, userOneAvatar: userOneAvatar, userTwoName: userTwoName, userTwoAvatar: userTwoAvatar, isUserOneTyping: false, isUserTwoTyping: false)
+                        let privateRoom = PrivateRoom(roomIdentifier: roomIdentifier, membersId: membersId, lastMessage: lastMessage, isSeen: isSeen, userOneName: userOneName, userOneAvatar: userOneAvatar, userTwoName: userTwoName, userTwoAvatar: userTwoAvatar, isUserOneTyping: false, isUserTwoTyping: false, isUserOneSeen: isUserOneSeen, isUserTwoSeen: isUserTwoSeen)
                         allRoom.append(privateRoom)
                     }
                     

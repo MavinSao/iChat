@@ -24,10 +24,12 @@ class RecieverTableViewCell: UITableViewCell {
         
         self.profileImage.kf.setImage(with: profileURL)
         self.messageTextLabel.text = message.messageText
-        self.messageTextLabel.padding = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
-        self.messageTextLabel.sizeToFit()
-        self.messageTextLabel.layer.cornerRadius = 25
-        self.messageTextLabel.layer.masksToBounds = true
+
+            self.messageTextLabel.padding = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
+            self.messageTextLabel.sizeToFit()
+            self.messageTextLabel.layer.cornerRadius = 25
+            self.messageTextLabel.layer.masksToBounds = true
+
     }
     
 }
