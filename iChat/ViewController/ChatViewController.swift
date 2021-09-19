@@ -97,22 +97,22 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-//        let currId = UserDefaults.standard.string(forKey: "currentID")
-//        let roomVC = storyboard?.instantiateViewController(identifier: "roomVC") as! RoomViewController
-//
-//        let reciverId = roomData[indexPath.row].membersId?.filter({ uid in
-//            uid != currId
-//        })
-//
-//        let roomObj = roomData[indexPath.row]
-//
-//        guard let safeReciverId = reciverId else {return}
-//
-//        self.userDelegate = roomVC
-//        userDelegate?.joinChat(room: roomObj, recieverId: safeReciverId[0])
-          performSegue(withIdentifier: "fromRoom", sender: self)
+        let currId = UserDefaults.standard.string(forKey: "currentID")
+        let roomVC = storyboard?.instantiateViewController(identifier: "roomVC") as! RoomViewController
+
+        let reciverId = roomData[indexPath.row].membersId?.filter({ uid in
+            uid != currId
+        })
+
+        let roomObj = roomData[indexPath.row]
+
+        guard let safeReciverId = reciverId else {return}
+
+        self.userDelegate = roomVC
+        userDelegate?.joinChat(room: roomObj, recieverId: safeReciverId[0])
+//          performSegue(withIdentifier: "fromRoom", sender: self)
         
-//        self.navigationController?.pushViewController(roomVC, animated: true)
+        self.navigationController?.pushViewController(roomVC, animated: true)
         
     }
     

@@ -15,6 +15,9 @@ class RoomViewController: UIViewController {
     
     @IBOutlet weak var messageTextField: UITextField!
 
+    @IBOutlet weak var camera: UIButton!
+    
+    
     @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
     
 
@@ -123,6 +126,11 @@ class RoomViewController: UIViewController {
                     }
                 }
             }
+        
+    }
+    
+    
+    @IBAction func cameraPress(_ sender: Any) {
         
     }
     

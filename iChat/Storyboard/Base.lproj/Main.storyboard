@@ -374,7 +374,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="LPe-fZ-1rW" id="QVg-GB-1eQ"/>
-                        <segue destination="68w-8k-Up7" kind="show" identifier="fromRoom" id="iR6-FQ-veI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VaY-j5-gtk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -396,7 +395,7 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="q8J-Ne-Yhr"/>
                             </scrollView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NF0-A7-OzM">
-                                <rect key="frame" x="0.0" y="150" width="414" height="656"/>
+                                <rect key="frame" x="0.0" y="54" width="414" height="752"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="68w-8k-Up7" id="0Ae-ir-Br6"/>
@@ -441,6 +440,9 @@
                                                 <real key="value" value="10"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="cameraPress:" destination="68w-8k-Up7" eventType="touchUpInside" id="MKb-Hw-0qH"/>
+                                        </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vem-BL-RzM">
                                         <rect key="frame" x="54" y="15" width="273" height="34"/>
@@ -483,6 +485,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bottomViewHeight" destination="KkK-UI-e1X" id="Ujv-ih-BVW"/>
+                        <outlet property="camera" destination="ban-ND-THs" id="sB3-51-Owa"/>
                         <outlet property="messageTextField" destination="Vem-BL-RzM" id="ZiN-la-bOW"/>
                         <outlet property="tableView" destination="NF0-A7-OzM" id="DFj-AK-ZKn"/>
                     </connections>
