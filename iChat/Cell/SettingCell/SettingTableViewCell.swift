@@ -9,15 +9,14 @@ import UIKit
 
 class SettingTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    @IBOutlet weak var itemTitle: UILabel!
+    @IBOutlet weak var itemImage: UIImageView!
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func config(item: Setting){
+        self.itemImage.image = UIImage(named:item.image)
+        self.itemTitle.text = item.title
+        self.itemImage.backgroundColor = item.backColor
     }
     
 }

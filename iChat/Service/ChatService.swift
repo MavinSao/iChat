@@ -40,7 +40,7 @@ struct ChatService {
         
 
     
-    func sendMessage(message: String,roomIdentifier: String,reciverId: String, isUserOne: Bool) {
+    func sendMessage(message: String,mediaURL: String?,roomIdentifier: String,reciverId: String, isUserOne: Bool, completion: @escaping (Result<String,Error>)->Void) {
         
         guard let currentUser = currentUser else {
             return
@@ -55,7 +55,7 @@ struct ChatService {
         UserService.shared.fetchUserByUID(uid: reciverId) { result in
             switch result {
             case .success(let reciver):
-                let messageObj = Message(roomIdentifier: roomIdentifier, senderId: currentUser.id!, senderName: currentUser.username!, senderAvatar: currentUser.avatar!, recieverId: reciver.id, recieverName: reciver.username!, recieverAvatar: reciver.avatar!, sendDate: Date(), messageText: message, mediaURL: "", status: false, isDefault: false)
+                let messageObj = Message(roomIdentifier: roomIdentifier, senderId: currentUser.id!, senderName: currentUser.username!, senderAvatar: currentUser.avatar!, recieverId: reciver.id, recieverName: reciver.username!, recieverAvatar: reciver.avatar!, sendDate: Date(), messageText: message, mediaURL: mediaURL ?? "", status: false, isDefault: false)
                     
                     db.collection("Messages").addDocument(data: messageObj.dictionary) { error in
                         if let error = error {
@@ -63,11 +63,10 @@ struct ChatService {
                         }else{
                             
                             db.collection("PrivateRoom").document(roomIdentifier).setData(["lastMessage": message],merge: true)
-                            
-                            print("Send Message Success")
+                            completion(.success("Send Message Success"))
                         }
                     }
-            case .failure(let error): print(error.localizedDescription)
+            case .failure(let error): completion(.failure(error))
             
             }
         }

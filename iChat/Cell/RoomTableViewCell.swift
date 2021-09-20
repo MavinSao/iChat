@@ -59,7 +59,7 @@ class RoomTableViewCell: UITableViewCell {
         }
         
         self.messageLabel.text = room.lastMessage
-        
+   
     }
     
     

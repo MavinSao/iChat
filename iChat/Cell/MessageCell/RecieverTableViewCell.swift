@@ -11,6 +11,9 @@ class RecieverTableViewCell: UITableViewCell {
 
     @IBOutlet weak var messageTextLabel: SSPaddingLabel!
     @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var imageURL: UIImageView!
+    @IBOutlet weak var mediaHeight: NSLayoutConstraint!
+    @IBOutlet weak var spacingMedia: NSLayoutConstraint!
     
     func config(message: Message) {
            
@@ -20,6 +23,20 @@ class RecieverTableViewCell: UITableViewCell {
                 avatarURL = avatar
             }
         }
+        
+        if message.mediaURL != "" {
+            let mediaURL = URL(string: message.mediaURL! )
+            self.imageURL.kf.setImage(with: mediaURL)
+            self.mediaHeight.constant = 250
+            self.spacingMedia.constant = 10
+            self.layoutIfNeeded()
+        }else{
+            self.spacingMedia.constant = 2
+            self.mediaHeight.constant = 2
+            self.imageURL.image = UIImage()
+            self.layoutIfNeeded()
+        }
+        
         let profileURL = URL(string: avatarURL )
         
         self.profileImage.kf.setImage(with: profileURL)

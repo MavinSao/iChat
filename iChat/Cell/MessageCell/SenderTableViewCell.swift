@@ -9,22 +9,39 @@ import UIKit
 
 class SenderTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var imageURL: UIImageView!
     @IBOutlet weak var messageText: SSPaddingLabel!
+    
+    @IBOutlet weak var spacingMedia: NSLayoutConstraint!
+    
+    @IBOutlet weak var mediaHeight: NSLayoutConstraint!
     
     override class func awakeFromNib() {
         super.awakeFromNib()
     }
     
     func config(message: Message) {
-        
-        print("Wokrrrk")
-        
+
         var avatarURL = "https://cliply.co/wp-content/uploads/2020/08/442008112_GLANCING_AVATAR_3D_400.png"
         if let avatar = message.senderAvatar{
             if avatar != ""{
                 avatarURL = avatar
             }
         }
+        
+        if message.mediaURL != "" {
+            let mediaURL = URL(string: message.mediaURL!)
+            self.imageURL.kf.setImage(with: mediaURL)
+            self.spacingMedia.constant = 10
+            self.mediaHeight.constant = 250
+            self.layoutIfNeeded()
+        }else{
+            self.spacingMedia.constant = 2
+            self.mediaHeight.constant = 2
+            self.imageURL.image = UIImage()
+            self.layoutIfNeeded()
+        }
+        
         let profileURL = URL(string: avatarURL )
         
         self.profileImage.kf.setImage(with: profileURL)

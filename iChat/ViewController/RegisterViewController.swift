@@ -19,8 +19,6 @@ class RegisterViewController: UIViewController {
     var isImageUpdate: Bool?
     
     var alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
-    var pickImageCallback : ((UIImage) -> ())?;
-    
     var imageURL: String?
     
     let imagePickerView = UIImagePickerController()
@@ -111,6 +109,7 @@ class RegisterViewController: UIViewController {
                             switch result {
                                 case .success(let message):
                                     ProgressHUD.showSuccess(message)
+                                    self.dismiss(animated: true, completion: nil)
                                 case .failure(let error):
                                     ProgressHUD.showError(error.localizedDescription)
                             }

@@ -14,13 +14,25 @@ import Kingfisher
 class RoomViewController: UIViewController {
     
     @IBOutlet weak var messageTextField: UITextField!
-
-    @IBOutlet weak var camera: UIButton!
-    
-    
+    @IBOutlet weak var camera          : UIButton!
     @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
     
-
+    var alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+    var imageURL: String? {
+        didSet{
+            if let imageURL = imageURL{
+                if imageURL != ""{
+                    self.camera.backgroundColor = .lightGray
+                }else{
+                    self.camera.backgroundColor = .darkGray
+                }
+            }
+        }
+    }
+    
+    let imagePickerView = UIImagePickerController()
+    
+    
     var messages: [Message] = []
     var room: PrivateRoom?
     var recieverId: String?
@@ -52,8 +64,30 @@ class RoomViewController: UIViewController {
         prepareNav()
         fetchMessages()
         listenUserTypping()
+        prepareAlertImageChoose()
      
     }
+    
+    func prepareAlertImageChoose(){
+        let cameraAction = UIAlertAction(title: "Camera", style: .default){
+                    UIAlertAction in
+                    self.chooseImage(type: .camera)
+         }
+                let galleryAction = UIAlertAction(title: "Gallery", style: .default){
+                    UIAlertAction in
+                    self.chooseImage(type: .photoLibrary)
+          }
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel){
+                    UIAlertAction in
+                   
+                }
+        // Add the actions
+        imagePickerView.delegate = self
+        alert.addAction(cameraAction)
+        alert.addAction(galleryAction)
+        alert.addAction(cancelAction)
+    }
+    
     
     func unsubscribeFromAllNotifications() {
             NotificationCenter.default.removeObserver(self)
@@ -95,6 +129,17 @@ class RoomViewController: UIViewController {
         }
     }
     
+    //MARK: - ChooseImage
+    func chooseImage(type: UIImagePickerController.SourceType){
+        let pickerController = UIImagePickerController()
+        pickerController.delegate = self
+        pickerController.allowsEditing = true
+        pickerController.mediaTypes = ["public.image", "public.movie"]
+        pickerController.sourceType = type
+        present(pickerController, animated: true, completion: nil)
+        
+    }
+    
     //MARK: -Set user typing
     func setUserTyping(isTyping: Bool){
         
@@ -129,16 +174,26 @@ class RoomViewController: UIViewController {
         
     }
     
-    
+    //Choose Image
     @IBAction func cameraPress(_ sender: Any) {
-        
+        present(alert, animated: true, completion: nil)
     }
     
 
     @IBAction func btnSendPressed(_ sender: Any) {
         let message = messageTextField.text!
         if message != "" {
-            ChatService.shared.sendMessage(message: message, roomIdentifier: room!.roomIdentifier!, reciverId: recieverId!, isUserOne: isUserOne)
+            ChatService.shared.sendMessage(message: message, mediaURL: imageURL, roomIdentifier: room!.roomIdentifier!, reciverId: recieverId!, isUserOne: isUserOne, completion: { result in
+                switch result {
+                    case .success(let message):
+                        print(message)
+                        self.imageURL = ""
+                    case .failure(let error):
+                        self.imageURL = ""
+                        ProgressHUD.show(error.localizedDescription)
+                }
+                
+            })
             messageTextField.text = ""
         }
     }
@@ -206,10 +261,28 @@ extension RoomViewController: UITableViewDelegate,UITableViewDataSource{
 }
 
 
-//MARK: - Handle keyboard
+//MARK: - Handle upload and download Image URL
 
-extension RoomViewController{
+extension RoomViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate{
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+     
+        if let possibleImage = info[.editedImage] as? UIImage {
+            
+            ProgressHUD.showProgress(0.99, interaction: true)
+            
+            FileService.shared.uploadImage(image: possibleImage) { result in
+                switch result {
+                case .success(let url):
+                      self.imageURL = url
+                      ProgressHUD.dismiss()
+                case .failure(let error): ProgressHUD.show(error.localizedDescription)
+                }
+            }
+            }
+            dismiss(animated: true)
+        
+    }
 }
 
 

@@ -28,12 +28,13 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DkQ-2w-Ury" customClass="SSPaddingLabel" customModule="iChat" customModuleProvider="target">
-                        <rect key="frame" x="260" y="10" width="39" height="50"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DkQ-2w-Ury" customClass="SSPaddingLabel" customModule="iChat" customModuleProvider="target">
+                        <rect key="frame" x="234" y="10" width="65" height="54"/>
                         <color key="backgroundColor" red="0.90318106310000001" green="0.90318106310000001" blue="0.90318106310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="2RJ-ky-Yxp"/>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="280" id="ILv-8u-w7T"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="65" id="um4-Id-pPT"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -53,19 +54,41 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OS3-mt-9ca">
+                        <rect key="frame" x="49" y="66" width="250" height="2"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="2" id="YHg-a3-LAv"/>
+                            <constraint firstAttribute="width" constant="250" id="gQI-7n-yab"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="25"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="DkQ-2w-Ury" secondAttribute="bottom" constant="10" id="JY5-8w-g0z"/>
+                    <constraint firstItem="OS3-mt-9ca" firstAttribute="top" secondItem="DkQ-2w-Ury" secondAttribute="bottom" constant="2" id="IKL-6t-Brb"/>
                     <constraint firstItem="DkQ-2w-Ury" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Xqt-P4-WTP"/>
                     <constraint firstItem="vnq-zQ-pza" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="eeN-O7-g8x"/>
                     <constraint firstItem="vnq-zQ-pza" firstAttribute="leading" secondItem="DkQ-2w-Ury" secondAttribute="trailing" constant="10" id="kdt-Da-rnC"/>
                     <constraint firstAttribute="trailing" secondItem="vnq-zQ-pza" secondAttribute="trailing" constant="10" id="lOm-Kl-k3j"/>
+                    <constraint firstItem="OS3-mt-9ca" firstAttribute="trailing" secondItem="DkQ-2w-Ury" secondAttribute="trailing" id="rye-9J-dPE"/>
+                    <constraint firstAttribute="bottom" secondItem="OS3-mt-9ca" secondAttribute="bottom" constant="2" id="tD9-dT-uv5"/>
                 </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                        <real key="value" value="25"/>
+                    </userDefinedRuntimeAttribute>
+                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="imageURL" destination="OS3-mt-9ca" id="Noi-aj-iV3"/>
+                <outlet property="mediaHeight" destination="YHg-a3-LAv" id="rbj-LD-rUe"/>
                 <outlet property="messageText" destination="DkQ-2w-Ury" id="wn7-o3-YyP"/>
                 <outlet property="profileImage" destination="vnq-zQ-pza" id="k4r-UO-Lun"/>
+                <outlet property="spacingMedia" destination="IKL-6t-Brb" id="Do7-sG-PJA"/>
             </connections>
             <point key="canvasLocation" x="107.97101449275362" y="71.651785714285708"/>
         </tableViewCell>
