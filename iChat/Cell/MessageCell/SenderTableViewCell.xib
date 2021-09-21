@@ -28,7 +28,7 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DkQ-2w-Ury" customClass="SSPaddingLabel" customModule="iChat" customModuleProvider="target">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DkQ-2w-Ury" customClass="SSPaddingLabel" customModule="iChat" customModuleProvider="target">
                         <rect key="frame" x="234" y="10" width="65" height="54"/>
                         <color key="backgroundColor" red="0.90318106310000001" green="0.90318106310000001" blue="0.90318106310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -86,6 +86,7 @@
             <connections>
                 <outlet property="imageURL" destination="OS3-mt-9ca" id="Noi-aj-iV3"/>
                 <outlet property="mediaHeight" destination="YHg-a3-LAv" id="rbj-LD-rUe"/>
+                <outlet property="messageHeight" destination="2RJ-ky-Yxp" id="6ZP-A5-wT8"/>
                 <outlet property="messageText" destination="DkQ-2w-Ury" id="wn7-o3-YyP"/>
                 <outlet property="profileImage" destination="vnq-zQ-pza" id="k4r-UO-Lun"/>
                 <outlet property="spacingMedia" destination="IKL-6t-Brb" id="Do7-sG-PJA"/>

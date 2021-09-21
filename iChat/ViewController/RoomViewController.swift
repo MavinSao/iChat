@@ -18,7 +18,7 @@ class RoomViewController: UIViewController {
     @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
     
     var alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
-    var imageURL: String? {
+    var imageURL: String? = "" {
         didSet{
             if let imageURL = imageURL{
                 if imageURL != ""{
@@ -179,10 +179,13 @@ class RoomViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-
+     //MARK: - Send Message Pressed
     @IBAction func btnSendPressed(_ sender: Any) {
         let message = messageTextField.text!
-        if message != "" {
+        
+        
+        
+        if message != "" || self.imageURL != "" {
             ChatService.shared.sendMessage(message: message, mediaURL: imageURL, roomIdentifier: room!.roomIdentifier!, reciverId: recieverId!, isUserOne: isUserOne, completion: { result in
                 switch result {
                     case .success(let message):
@@ -268,14 +271,14 @@ extension RoomViewController: UINavigationControllerDelegate, UIImagePickerContr
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
      
         if let possibleImage = info[.editedImage] as? UIImage {
-            
+            self.tabBarController?.tabBar.isHidden = true
             ProgressHUD.showProgress(0.99, interaction: true)
-            
             FileService.shared.uploadImage(image: possibleImage) { result in
                 switch result {
                 case .success(let url):
                       self.imageURL = url
                       ProgressHUD.dismiss()
+
                 case .failure(let error): ProgressHUD.show(error.localizedDescription)
                 }
             }
