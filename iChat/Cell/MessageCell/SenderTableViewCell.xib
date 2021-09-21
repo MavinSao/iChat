@@ -29,12 +29,12 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DkQ-2w-Ury" customClass="SSPaddingLabel" customModule="iChat" customModuleProvider="target">
-                        <rect key="frame" x="260" y="10" width="39" height="54"/>
+                        <rect key="frame" x="259" y="10" width="40" height="54"/>
                         <color key="backgroundColor" red="0.90318106310000001" green="0.90318106310000001" blue="0.90318106310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="2RJ-ky-Yxp"/>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="280" id="ILv-8u-w7T"/>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="35" id="um4-Id-pPT"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="um4-Id-pPT"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

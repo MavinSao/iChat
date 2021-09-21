@@ -29,10 +29,10 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WWu-St-Bt2" customClass="SSPaddingLabel" customModule="iChat" customModuleProvider="target">
-                        <rect key="frame" x="70" y="10" width="65" height="53"/>
+                        <rect key="frame" x="70" y="10" width="40" height="53"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.85465588209999999" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="65" id="d0m-KD-Rlg"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="d0m-KD-Rlg"/>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="280" id="mCa-od-ukW"/>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="sWC-LM-WbB"/>
                         </constraints>

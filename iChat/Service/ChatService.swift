@@ -55,14 +55,17 @@ struct ChatService {
         UserService.shared.fetchUserByUID(uid: reciverId) { result in
             switch result {
             case .success(let reciver):
-                let messageObj = Message(roomIdentifier: roomIdentifier, senderId: currentUser.id!, senderName: currentUser.username!, senderAvatar: currentUser.avatar!, recieverId: reciver.id, recieverName: reciver.username!, recieverAvatar: reciver.avatar!, sendDate: Date(), messageText: message, mediaURL: mediaURL ?? "", status: false, isDefault: false)
+                
+                let messageObj = Message(roomIdentifier: roomIdentifier, senderId: currentUser.id!, senderName: currentUser.username!, senderAvatar: currentUser.avatar!, recieverId: reciver.id, recieverName: reciver.username!, recieverAvatar: reciver.avatar!, sendDate: Date(), messageText: message , mediaURL: mediaURL ?? "", status: false, isDefault: false)
                     
                     db.collection("Messages").addDocument(data: messageObj.dictionary) { error in
                         if let error = error {
                             print(error.localizedDescription)
                         }else{
                             
-                            db.collection("PrivateRoom").document(roomIdentifier).setData(["lastMessage": message],merge: true)
+                            let messageT = message == "" ? "Photo" : message
+                            
+                            db.collection("PrivateRoom").document(roomIdentifier).setData(["lastMessage": messageT,"sendDate": Date()],merge: true)
                             completion(.success("Send Message Success"))
                         }
                     }
@@ -123,6 +126,8 @@ struct ChatService {
                 let roomIdentifier = roomDic["roomIdentifier"] as! String
                 let lastMessage    = roomDic["lastMessage"] as! String
                 let isSeen         = roomDic["isSeen"] as! Bool
+                let stamp             = roomDic["sendDate"] as! Timestamp
+                let sendDate          = stamp.dateValue()
                 let membersId      = roomDic["membersId"] as! [String]
                 let userOneName    = roomDic["userOneName"] as! String
                 let userOneAvatar    = roomDic["userOneAvatar"] as! String
@@ -131,7 +136,7 @@ struct ChatService {
                 let isUserOneSeen  = roomDic["isUserOneSeen"] as! Bool
                 let isUserTwoSeen  = roomDic["isUserTwoSeen"] as! Bool
                 
-                let privateRoom = PrivateRoom(roomIdentifier: roomIdentifier, membersId: membersId, lastMessage: lastMessage, isSeen: isSeen, userOneName: userOneName, userOneAvatar: userOneAvatar, userTwoName: userTwoName, userTwoAvatar: userTwoAvatar, isUserOneTyping: false, isUserTwoTyping: false, isUserOneSeen: isUserOneSeen, isUserTwoSeen: isUserTwoSeen)
+                let privateRoom = PrivateRoom(roomIdentifier: roomIdentifier, membersId: membersId, lastMessage: lastMessage, isSeen: isSeen, sendDate: sendDate, userOneName: userOneName, userOneAvatar: userOneAvatar, userTwoName: userTwoName, userTwoAvatar: userTwoAvatar, isUserOneTyping: false, isUserTwoTyping: false, isUserOneSeen: isUserOneSeen, isUserTwoSeen: isUserTwoSeen)
        
                 roomData.append(privateRoom)
                 
@@ -167,7 +172,7 @@ struct ChatService {
                         return
                     }
                     if(!snapshot.exists){
-                            let privateRoom = PrivateRoom(roomIdentifier: privateId, membersId: [currentUser.id!,withUser.id!], lastMessage: "", isSeen: false, userOneName: currentUser.fullname, userOneAvatar: currentUser.avatar , userTwoName: withUser.fullname, userTwoAvatar: withUser.avatar, isUserOneTyping: false, isUserTwoTyping: false, isUserOneSeen: false, isUserTwoSeen: false)
+                        let privateRoom = PrivateRoom(roomIdentifier: privateId, membersId: [currentUser.id!,withUser.id!], lastMessage: "", isSeen: false, sendDate: Date(), userOneName: currentUser.fullname, userOneAvatar: currentUser.avatar , userTwoName: withUser.fullname, userTwoAvatar: withUser.avatar, isUserOneTyping: false, isUserTwoTyping: false, isUserOneSeen: false, isUserTwoSeen: false)
                              db.collection("PrivateRoom").document(privateId).setData(privateRoom.dictionary, merge: false) { error in
                                             if let error = error {
                                                 compeltion(.failure(error))
@@ -182,6 +187,8 @@ struct ChatService {
                             let roomIdentifier = roomDic["roomIdentifier"] as! String
                             let lastMessage    = roomDic["lastMessage"] as! String
                             let isSeen         = roomDic["isSeen"] as! Bool
+                            let stamp             = roomDic["sendDate"] as! Timestamp
+                            let sendDate          = stamp.dateValue()
                             let membersId      = roomDic["membersId"] as! [String]
                             let userOneName    = roomDic["userOneName"] as! String
                             let userOneAvatar    = roomDic["userOneAvatar"] as! String
@@ -190,7 +197,7 @@ struct ChatService {
                             let isUserOneSeen  = roomDic["isUserOneSeen"] as! Bool
                             let isUserTwoSeen  = roomDic["isUserTwoSeen"] as! Bool
                             
-                            let existRoom = PrivateRoom(roomIdentifier: roomIdentifier, membersId: membersId, lastMessage: lastMessage, isSeen: isSeen, userOneName: userOneName, userOneAvatar: userOneAvatar, userTwoName: userTwoName, userTwoAvatar: userTwoAvatar,isUserOneTyping: false, isUserTwoTyping: false, isUserOneSeen: isUserOneSeen, isUserTwoSeen: isUserTwoSeen)
+                            let existRoom = PrivateRoom(roomIdentifier: roomIdentifier, membersId: membersId, lastMessage: lastMessage, isSeen: isSeen, sendDate: sendDate, userOneName: userOneName, userOneAvatar: userOneAvatar, userTwoName: userTwoName, userTwoAvatar: userTwoAvatar,isUserOneTyping: false, isUserTwoTyping: false, isUserOneSeen: isUserOneSeen, isUserTwoSeen: isUserTwoSeen)
                             compeltion(.success(existRoom))
                             
                         }
@@ -202,6 +209,8 @@ struct ChatService {
                     let roomIdentifier = roomDic["roomIdentifier"] as! String
                     let lastMessage    = roomDic["lastMessage"] as! String
                     let isSeen         = roomDic["isSeen"] as! Bool
+                    let stamp             = roomDic["sendDate"] as! Timestamp
+                    let sendDate          = stamp.dateValue()
                     let membersId      = roomDic["membersId"] as! [String]
                     let userOneName    = roomDic["userOneName"] as! String
                     let userOneAvatar    = roomDic["userOneAvatar"] as! String
@@ -210,7 +219,7 @@ struct ChatService {
                     let isUserOneSeen  = roomDic["isUserOneSeen"] as! Bool
                     let isUserTwoSeen  = roomDic["isUserTwoSeen"] as! Bool
                     
-                    let existRoom = PrivateRoom(roomIdentifier: roomIdentifier, membersId: membersId, lastMessage: lastMessage, isSeen: isSeen, userOneName: userOneName, userOneAvatar: userOneAvatar, userTwoName: userTwoName, userTwoAvatar: userTwoAvatar, isUserOneTyping: false, isUserTwoTyping: false, isUserOneSeen: isUserOneSeen, isUserTwoSeen: isUserTwoSeen)
+                    let existRoom = PrivateRoom(roomIdentifier: roomIdentifier, membersId: membersId, lastMessage: lastMessage, isSeen: isSeen, sendDate: sendDate, userOneName: userOneName, userOneAvatar: userOneAvatar, userTwoName: userTwoName, userTwoAvatar: userTwoAvatar, isUserOneTyping: false, isUserTwoTyping: false, isUserOneSeen: isUserOneSeen, isUserTwoSeen: isUserTwoSeen)
                     compeltion(.success(existRoom))
                 }
                

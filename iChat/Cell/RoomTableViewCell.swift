@@ -13,13 +13,22 @@ class RoomTableViewCell: UITableViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var sendDate: UILabel!
     
     var defaults = UserDefaults.standard
     
     func config(room: PrivateRoom){
         let currID = defaults.string(forKey: "currentID")
+
+        let dayFormatter = DateFormatter()
+        dayFormatter.dateFormat  = "EEEE" // "EE" to get short style
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "hh:mm a"
         
- 
+        let date = dayFormatter.string(from: room.sendDate!)
+        let time = timeFormatter.string(from: room.sendDate!)
+        
+        self.sendDate.text = "\(date). \(time)"
         
         var avatarURLOne = "https://cliply.co/wp-content/uploads/2020/08/442008112_GLANCING_AVATAR_3D_400.png"
         var avatarURLTwo = "https://cliply.co/wp-content/uploads/2020/08/442008112_GLANCING_AVATAR_3D_400.png"

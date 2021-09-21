@@ -28,12 +28,12 @@ class ProfileSettingViewController: UIViewController {
     }
     
     func setUpSettings() {
-        let darkMode = Setting(title: "Dark Mode", image: "moon", segueIden: "", backColor: .orange)
-        let profileSet = Setting(title: "Update Infomation", image: "person", segueIden: "", backColor: .darkGray)
-        let activeStatus = Setting(title: "Active Status", image: "active", segueIden: "", backColor: .green)
-        let archived = Setting(title: "Archived Chat", image: "archive", segueIden: "", backColor: .brown)
+        let darkMode = Setting(title: "Dark Mode", image: "moon", segueIden: "", backColor: .darkGray)
+        let profileSet = Setting(title: "Update Infomation", image: "person", segueIden: "", backColor: .orange)
+        let activeStatus = Setting(title: "Active Status", image: "active", segueIden: "", backColor: .brown)
+        let archived = Setting(title: "Archived Chat", image: "archive", segueIden: "", backColor: .systemGray2)
         let notification = Setting(title: "Notification and Sound", image: "bell", segueIden: "", backColor: .blue)
-        let accountSetting = Setting(title: "Account Settings", image: "setting", segueIden: "", backColor: .magenta)
+        let accountSetting = Setting(title: "Account Settings", image: "setting", segueIden: "", backColor: .systemGray3)
         let logout = Setting(title: "Logout", image: "logout", segueIden: "", backColor: .red)
         
         self.settings = [[darkMode,profileSet,activeStatus,archived],[notification],[accountSetting,logout]]
@@ -54,7 +54,6 @@ class ProfileSettingViewController: UIViewController {
         self.profileImage.kf.setImage(with: profileURL)
         self.usernameLabel.text = user?.fullname
         self.emailLabel.text = user?.email
-        
         
     }
     
@@ -101,7 +100,7 @@ extension ProfileSettingViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "settingCell", for: indexPath) as! SettingTableViewCell
-
+        cell.selectionStyle = .none
         let section = self.settings[indexPath.section]
         let item = section[indexPath.row]
         cell.config(item: item)

@@ -13,9 +13,12 @@ class ChatViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     var userDelegate: UserProtocolDelegate?
+    @IBOutlet weak var profileBarButton: UIBarButtonItem!
     
     var roomData: [PrivateRoom] = []
     let currentId = UserDefaults.standard.string(forKey: "currentID")
+    
+   
     
     private let db = Firestore.firestore()
     
@@ -23,31 +26,35 @@ class ChatViewController: UIViewController {
         super.viewDidLoad()
         self.tableView.register(UINib(nibName: "RoomTableViewCell", bundle: nil), forCellReuseIdentifier: "chatCell")
         fetchAllPrivateRoom()
-        
+        setInfo()
         print("view did load")
     }
     
-    
-
-    
-
-    
-    //MARK: -Logout
-    @IBAction func logoutPressed(_ sender: Any) {
+    func setInfo() {
+        let user = ChatService.shared.currentUser
         
-        let appDelegate = UIApplication.shared.windows.first
-        let loginVC = storyboard?.instantiateViewController(identifier: "LoginVC")
-        
-        AuthService.shared.logout { result in
-            switch result{
-                case .success(let isSucc):
-                    if(isSucc){appDelegate?.rootViewController = loginVC}
-                case .failure(let err):
-                    ProgressHUD.showError(err.localizedDescription)
+        var avatarURL = "https://cliply.co/wp-content/uploads/2020/08/442008112_GLANCING_AVATAR_3D_400.png"
+        if let avatar = user?.avatar{
+            if avatar != ""{
+                avatarURL = avatar
             }
         }
+        let profileURL = URL(string: avatarURL)
+        do{
+            let imgData = try Data(contentsOf: profileURL!)
+            let button = UIButton(type: .custom)
+            
+            button.setImage(UIImage(data: imgData), for: .normal)
+//            self.profileBarButton.customView = button
+            self.navigationController?.navigationItem.setRightBarButton(UIBarButtonItem(customView: button), animated: true)
+            
+        }catch let error{
+            print(error.localizedDescription)
+        }
+       
     }
     
+      
 }
 
 extension ChatViewController: UITableViewDataSource, UITableViewDelegate{
@@ -148,8 +155,6 @@ extension ChatViewController{
                     
                     var allRoom: [PrivateRoom] = []
                     
-                  
-                    
                     for document in snapshot.documents {
                         
                         print("snapshot=>",document.data())
@@ -158,21 +163,23 @@ extension ChatViewController{
                         let roomIdentifier = roomDic["roomIdentifier"] as! String
                         let lastMessage    = roomDic["lastMessage"] as! String
                         let isSeen         = roomDic["isSeen"] as! Bool
+                        let stamp          = roomDic["sendDate"] as! Timestamp
+                        let sendDate       = stamp.dateValue()
                         let membersId      = roomDic["membersId"] as! [String]
                         let userOneName    = roomDic["userOneName"] as! String
-                        let userOneAvatar    = roomDic["userOneAvatar"] as! String
+                        let userOneAvatar  = roomDic["userOneAvatar"] as! String
                         let userTwoName    = roomDic["userTwoName"] as! String
-                        let userTwoAvatar    = roomDic["userTwoAvatar"] as! String
+                        let userTwoAvatar  = roomDic["userTwoAvatar"] as! String
                         let isUserOneSeen  = roomDic["isUserOneSeen"] as! Bool
                         let isUserTwoSeen  = roomDic["isUserTwoSeen"] as! Bool
                         
-                        let privateRoom = PrivateRoom(roomIdentifier: roomIdentifier, membersId: membersId, lastMessage: lastMessage, isSeen: isSeen, userOneName: userOneName, userOneAvatar: userOneAvatar, userTwoName: userTwoName, userTwoAvatar: userTwoAvatar, isUserOneTyping: false, isUserTwoTyping: false, isUserOneSeen: isUserOneSeen, isUserTwoSeen: isUserTwoSeen)
+                        let privateRoom = PrivateRoom(roomIdentifier: roomIdentifier, membersId: membersId, lastMessage: lastMessage, isSeen: isSeen, sendDate: sendDate, userOneName: userOneName, userOneAvatar: userOneAvatar, userTwoName: userTwoName, userTwoAvatar: userTwoAvatar, isUserOneTyping: false, isUserTwoTyping: false, isUserOneSeen: isUserOneSeen, isUserTwoSeen: isUserTwoSeen)
                         allRoom.append(privateRoom)
                     }
                     
                     DispatchQueue.main.async {
                         let existRooms = allRoom.filter { room in
-                            room.lastMessage != ""
+                            room.lastMessage != "" 
                         }
                         self.roomData = existRooms
                         self.tableView.reloadData()

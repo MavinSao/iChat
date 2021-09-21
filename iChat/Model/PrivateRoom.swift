@@ -12,6 +12,7 @@ struct PrivateRoom {
     let membersId      : [String]?
     let lastMessage    : String?
     let isSeen         : Bool?
+    let sendDate       : Date?
     let userOneName    : String?
     let userOneAvatar  : String?
     let userTwoName    : String?
@@ -27,6 +28,7 @@ struct PrivateRoom {
             "membersId" : membersId ?? [],
             "lastMessage" : lastMessage ?? "",
             "isSeen" : isSeen ?? "",
+            "sendDate": sendDate ?? Date(),
             "userOneName": userOneName ?? "",
             "userOneAvatar" : userOneAvatar ?? "",
             "userTwoName": userTwoName ?? "",

@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,14 +18,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowtriangle.left.square.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Nb0-op-nTA">
-                        <rect key="frame" x="10" y="11" width="50" height="47.5"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nb0-op-nTA">
+                        <rect key="frame" x="20" y="12.5" width="50" height="44.5"/>
                         <color key="backgroundColor" systemColor="systemOrangeColor"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="FRN-CZ-if0"/>
                             <constraint firstAttribute="width" constant="50" id="icB-YZ-J8W"/>
                         </constraints>
+                        <imageReference key="image" image="arrowtriangle.left.square.fill" catalog="system" symbolScale="small" renderingMode="original"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <real key="value" value="10"/>
@@ -32,7 +34,7 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vut-uE-Nlv">
-                        <rect key="frame" x="75" y="23" width="38" height="24"/>
+                        <rect key="frame" x="85" y="23" width="38" height="24"/>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -42,7 +44,7 @@
                     <constraint firstItem="Nb0-op-nTA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="DGK-MH-yeh"/>
                     <constraint firstItem="vut-uE-Nlv" firstAttribute="centerY" secondItem="Nb0-op-nTA" secondAttribute="centerY" id="Hq5-06-Akc"/>
                     <constraint firstAttribute="bottom" secondItem="Nb0-op-nTA" secondAttribute="bottom" constant="10" id="Q4h-iR-oWm"/>
-                    <constraint firstItem="Nb0-op-nTA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Yak-0x-lai"/>
+                    <constraint firstItem="Nb0-op-nTA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Yak-0x-lai"/>
                     <constraint firstItem="vut-uE-Nlv" firstAttribute="leading" secondItem="Nb0-op-nTA" secondAttribute="trailing" constant="15" id="tnK-zj-AUE"/>
                 </constraints>
             </tableViewCellContentView>

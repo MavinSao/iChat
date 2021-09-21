@@ -54,19 +54,27 @@
                         </subviews>
                     </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gAL-az-blV">
-                        <rect key="frame" x="10" y="104" width="332" height="1"/>
+                        <rect key="frame" x="103" y="104" width="239" height="1"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="tKz-hp-wLc"/>
                         </constraints>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pj9-ax-ZLk">
+                        <rect key="frame" x="309.5" y="77" width="32.5" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="gAL-az-blV" firstAttribute="leading" secondItem="A8Q-Xq-1sr" secondAttribute="leading" id="9qJ-Ch-VTg"/>
+                    <constraint firstItem="gAL-az-blV" firstAttribute="leading" secondItem="vrP-fo-XQq" secondAttribute="leading" id="13j-qk-WWr"/>
                     <constraint firstAttribute="bottom" secondItem="gAL-az-blV" secondAttribute="bottom" constant="5" id="C6C-Xg-g5Y"/>
                     <constraint firstAttribute="trailing" secondItem="gAL-az-blV" secondAttribute="trailing" constant="10" id="K9n-cR-pk2"/>
                     <constraint firstAttribute="bottom" secondItem="UJl-He-Gy6" secondAttribute="bottom" constant="10" id="U6k-ti-Eha"/>
                     <constraint firstAttribute="trailing" secondItem="UJl-He-Gy6" secondAttribute="trailing" constant="10" id="bDZ-Q4-bsJ"/>
+                    <constraint firstAttribute="trailing" secondItem="pj9-ax-ZLk" secondAttribute="trailing" constant="10" id="bGg-6N-h1k"/>
+                    <constraint firstAttribute="bottom" secondItem="pj9-ax-ZLk" secondAttribute="bottom" constant="15" id="cGE-gC-JG8"/>
                     <constraint firstItem="UJl-He-Gy6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="dUE-fZ-Xyf"/>
                     <constraint firstItem="UJl-He-Gy6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="qDH-7B-3Ko"/>
                 </constraints>
@@ -75,6 +83,7 @@
             <connections>
                 <outlet property="messageLabel" destination="pbK-59-J5g" id="zlW-Fn-cAn"/>
                 <outlet property="profileImage" destination="A8Q-Xq-1sr" id="XaO-nH-iT3"/>
+                <outlet property="sendDate" destination="pj9-ax-ZLk" id="uGR-2p-ALY"/>
                 <outlet property="usernameLabel" destination="PPH-eT-noP" id="03h-uv-wh6"/>
             </connections>
             <point key="canvasLocation" x="118.84057971014494" y="83.705357142857139"/>

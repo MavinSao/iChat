@@ -53,7 +53,7 @@
                         </subviews>
                     </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gh9-ek-Cil">
-                        <rect key="frame" x="10" y="111" width="375" height="1"/>
+                        <rect key="frame" x="117" y="111" width="268" height="1"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="wEI-LQ-sMs"/>
@@ -62,10 +62,10 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="X3B-dr-SeL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="3ba-0B-G8h"/>
+                    <constraint firstItem="gh9-ek-Cil" firstAttribute="leading" secondItem="euk-Uy-Jyn" secondAttribute="leading" id="J0H-K2-oqq"/>
                     <constraint firstAttribute="trailing" secondItem="gh9-ek-Cil" secondAttribute="trailing" constant="10" id="Sp2-m0-Guv"/>
                     <constraint firstItem="X3B-dr-SeL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Xx4-Bc-gQ8"/>
                     <constraint firstAttribute="bottom" secondItem="gh9-ek-Cil" secondAttribute="bottom" constant="5" id="Zc7-cy-56x"/>
-                    <constraint firstItem="gh9-ek-Cil" firstAttribute="leading" secondItem="4rN-d6-y9e" secondAttribute="leading" id="dc2-Xd-HnV"/>
                     <constraint firstAttribute="trailing" secondItem="X3B-dr-SeL" secondAttribute="trailing" constant="10" id="gdo-9L-hG5"/>
                     <constraint firstAttribute="bottom" secondItem="X3B-dr-SeL" secondAttribute="bottom" constant="10" id="p2Y-fw-sev"/>
                 </constraints>
