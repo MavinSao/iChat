@@ -271,7 +271,10 @@ extension RoomViewController: UINavigationControllerDelegate, UIImagePickerContr
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
      
         if let possibleImage = info[.editedImage] as? UIImage {
+            
             self.tabBarController?.tabBar.isHidden = true
+            IQKeyboardManager.shared().isEnabled = false
+            
             ProgressHUD.showProgress(0.99, interaction: true)
             FileService.shared.uploadImage(image: possibleImage) { result in
                 switch result {
